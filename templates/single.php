@@ -1,11 +1,10 @@
 <?php
 
-require '../src/DAO/DAO.php';
-require '../src/DAO/ArticleDAO.php';
-require '../src/DAO/CommentDAO.php';
+require '../vendor/autoload.php';
 
 use App\src\DAO\ArticleDAO;
 use App\src\DAO\CommentDAO;
+
 ?>
 
 <!DOCTYPE html>
