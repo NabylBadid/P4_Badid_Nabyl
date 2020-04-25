@@ -2,15 +2,18 @@
 
 namespace App\config;
 use App\src\controller\FrontController;
+use App\src\controller\ErrorController;
 use Exception;
 
 class Router
 {
     private $frontController;
+    private $errorController;
 
     public function __construct()
     {
         $this->frontController = new FrontController();
+        $this->errorController = new ErrorController();
     }
 
     public function run()
