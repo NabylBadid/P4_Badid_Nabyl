@@ -15,8 +15,6 @@ use App\src\DAO\ArticleDAO;
     <h1>Mon blog</h1>
     <p>En construction</p>
     <?php
-    $article = new ArticleDAO();
-    $articles = $article->getArticles();
     while($article = $articles->fetch())
     {
         ?>
