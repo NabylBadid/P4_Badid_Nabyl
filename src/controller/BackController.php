@@ -9,8 +9,10 @@ class BackController extends Controller
     public function administration()
     {
         $articles = $this->articleDAO->getArticles();
+        $comments = $this->commentDAO->getFlagComments();
         return $this->view->render('administration', [
-            'articles' => $articles
+            'articles' => $articles,
+            'comments' => $comments
         ]);
     }
 
@@ -64,11 +66,18 @@ class BackController extends Controller
         header('Location: ../public/index.php?route=administration');
     }
 
+    public function unflagComment($commentId)
+    {
+        $this->commentDAO->unflagComment($commentId);
+        $this->session->set('unflag_comment', 'Le commentaire a bien été désignalé');
+        header('Location: ../public/index.php?route=administration');
+    }
+
     public function deleteComment($commentId)
     {
         $this->commentDAO->deleteComment($commentId);
         $this->session->set('delete_comment', 'Le commentaire a bien été supprimé');
-        header('Location: ../public/index.php');
+        header('Location: ../public/index.php?route=administration');
     }
 
     public function profile()
