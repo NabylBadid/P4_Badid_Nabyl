@@ -8,6 +8,7 @@ class View
 {
     private $file;
     private $title;
+    private $script; 
     private $request;
     private $session;
 
@@ -24,7 +25,8 @@ class View
         $view = $this->renderFile('../templates/base.php', [
             'title' => $this->title,
             'content' => $content,
-            'session' => $this->session
+            'session' => $this->session,
+            'script' => $this->script 
         ]);
         echo $view;
     }

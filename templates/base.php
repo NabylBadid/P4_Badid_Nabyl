@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <title><?= $title ?></title>
+    <?= $script ?>
 </head>
 <body>
     <div id="content">
