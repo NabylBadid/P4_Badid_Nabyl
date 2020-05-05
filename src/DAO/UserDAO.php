@@ -76,4 +76,21 @@ class UserDAO extends DAO
         $sql = 'DELETE FROM user WHERE id = ?';
         $this->createQuery($sql, [$userId]);
     }
+
+    public function accesAdmin()
+    {
+        $sql = 'SELECT * FROM user WHERE id = 8';
+        $data = $this->createQuery($sql);
+        $result = $data->fetch(\PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // public function accesAdmin(Parameter $post)
+    // {
+    //     $sql = 'SELECT * FROM admin WHERE pseudo = ?, password = ?';
+    //     $data = $this->createQuery($sql, [$post->get('pseudo'), $post->get('password')]);
+    //     $result = $data->fetch();
+    //     return $result;
+    // }
+
 }

@@ -27,19 +27,48 @@ class BackController extends Controller
         }
     }
 
-    public function administration()
+    public function administration(Parameter $post)
     {
-        if($this->checkAdmin()) {
-            $articles = $this->articleDAO->getArticles();
-            $comments = $this->commentDAO->getFlagComments();
-            $users = $this->userDAO->getUsers();
+        $articles = $this->articleDAO->getArticles();
+        $comments = $this->commentDAO->getFlagComments();
+        $users = $this->userDAO->getUsers();
+        $confirmed = $this->session->get('accesAdmin');
 
+        // Déja confirmé ?
+        if ($confirmed)
+        {
             return $this->view->render('administration', [
                 'articles' => $articles,
                 'comments' => $comments,
                 'users' => $users
-            ]);   
+            ]);
         }
+
+        // Formuliaire soumit
+        if($post->get('submit'))
+        {
+
+            $result = $this->userDAO->accesAdmin();
+            $pseudo = $post->get('pseudo');
+            $pwd = $post->get('password');
+            // $isThePasswd = password_verify($post->get('password'), $result['password']); 
+            if($pseudo === $result['pseudo'] && password_verify($post->get('password'), $result['password']))
+            {
+                $this->session->set('accesAdmin', 'Bienvenue sur la page d\'administration');
+
+                return $this->view->render('administration', [
+                    'articles' => $articles,
+                    'comments' => $comments,
+                    'users' => $users
+                ]);
+            }    
+            else
+            {
+                $this->session->set('error_login', 'Le pseudo ou le mot de passe sont incorrects');
+            }
+        }
+
+        return $this->view->render('administration');
     }
 
     public function addArticle(Parameter $post)
@@ -139,7 +168,7 @@ class BackController extends Controller
     {
         if($this->checkLoggedIn())
         {
-            $this->logoutOrDelete('logout');    
+            $this->logoutOrDelete('logout');
         }
     }
 
@@ -148,7 +177,7 @@ class BackController extends Controller
         if($this->checkLoggedIn())
         {
             $this->userDAO->deleteAccount($this->session->get('pseudo'));
-            $this->logoutOrDelete('delete_account');   
+            $this->logoutOrDelete('delete_account');
         }
     }
 
