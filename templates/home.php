@@ -1,7 +1,5 @@
 <?php $this->title = 'Accueil'; ?>
 
-<h1>Mon blog</h1>
-<p>En construction</p>
 <img src="../public/img/acceuil23.jpg" alt="Image d'acceuil" class="img-fluid img-thumbnail rounded mx-auto d-block"><br />
 <?= $this->session->show('add_article'); ?>
 <?= $this->session->show('edit_article'); ?>
