@@ -4,6 +4,7 @@
 <p>En construction</p>
 <?= var_dump($this->session); ?>
 <?= $this->session->show('error_login'); ?>
+
 <?php 
 
 $confirmed = $this->session->get('accesAdmin');
