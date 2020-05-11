@@ -25,6 +25,11 @@ class Article
     private $author;
 
     /**
+     * @var string
+     */
+    private $imgName;
+
+    /**
      * @var \DateTime
      */
     private $createdAt;
@@ -91,6 +96,22 @@ class Article
     public function setAuthor($author)
     {
         $this->author = $author;
+    }
+
+    /**
+     * @return string
+     */
+    public function getImgName()
+    {
+        return $this->imgName;
+    }
+
+    /**
+     * @param string $imgName
+     */
+    public function setImgName($imgName)
+    {
+        $this->imgName = $imgName;
     }
 
     /**

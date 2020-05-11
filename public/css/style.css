@@ -200,9 +200,10 @@ i.fa-envelope {
 
 /* Home */
 
-img .img-fluid
+img .img-thumbnail
 {
   padding-top: 15px;
+  margin-bottom: 50px;
 }
 
 .container-fluid
@@ -210,3 +211,23 @@ img .img-fluid
   margin-top: 10px;
 }
 
+.container.books
+{
+  margin-top: 50px;
+}
+
+.info
+{
+  font-size: 10px;
+}
+
+.title a 
+{
+  color : #8c94a4;
+}
+
+.title a:hover
+{
+  text-decoration: none;
+  color: #ac8c6c;
+}

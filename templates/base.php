@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name=viewport content="width=device-width, initial-scale=1">
-        <meta property="og:title" content="Web Agency" />
+        <meta property="og:title" content="Blog Jean Forteroche" />
         <meta property="og:description" content="Blog de jean Forteroche, Découvrez-y tous mes romans !" />
         <!-- <meta property="og:url" content="http://www.webagencyp.com" /> -->
         <meta property="og:image" content="images/logo.png" />

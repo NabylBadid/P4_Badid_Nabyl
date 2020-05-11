@@ -15,12 +15,15 @@ class ArticleDAO extends DAO
         $article->setContent($row['content']);
         $article->setAuthor($row['pseudo']);
         $article->setCreatedAt($row['createdAt']);
+        $article->setImgName($row['imgName']);
         return $article;
     }
 
     public function getArticles()
     {
-        $sql = 'SELECT article.id, article.title, article.content, user.pseudo, article.createdAt FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
+        $sql = 'SELECT article.id, article.title, article.content, user.pseudo, article.createdAt, article.imgName FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
+        // DATE_FORMAT(dateAjout, \'%d/%m/%Y à %Hh%imin%ss\') AS dateAjout
+        // $sql = 'SELECT article.id, article.title, article.content, user.pseudo, article.imgName, DATE_FORMAT(article.createdAt, \'%d/%m/%Y %Hh%imin%ss\') AS article.createdAt FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
         $result = $this->createQuery($sql);
         $articles = [];
         foreach ($result as $row){
@@ -42,8 +45,8 @@ class ArticleDAO extends DAO
 
     public function addArticle(Parameter $post, $userId)
     {
-        $sql = 'INSERT INTO article (title, content, createdAt, user_id) VALUES (?, ?, NOW(), ?)';
-        $this->createQuery($sql, [$post->get('title'), $post->get('content'), $userId]);
+        $sql = 'INSERT INTO article (title, content, createdAt, imgName, user_id) VALUES (?, ?, NOW(), ?, ?)';
+        $this->createQuery($sql, [$post->get('title'), $post->get('content'), $post->get('imgName'), $userId]);
     }
 
     public function editArticle(Parameter $post, $articleId, $userId)

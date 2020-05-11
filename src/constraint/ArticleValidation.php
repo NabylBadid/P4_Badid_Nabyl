@@ -31,6 +31,10 @@ class ArticleValidation extends Validation
             $error = $this->checkContent($name, $value);
             $this->addError($name, $error);
         }
+        elseif ($name === 'imgName') {
+            $error = $this->checkContent($name, $value);
+            $this->addError($name, $error);
+        }
     }
 
     private function addError($name, $error) {
@@ -61,6 +65,19 @@ class ArticleValidation extends Validation
         }
         if($this->constraint->minLength($name, $value, 2)) {
             return $this->constraint->minLength('contenu', $value, 2);
+        }
+    }
+
+    private function checkImgName($name, $value)
+    {
+        if($this->constraint->notBlank($name, $value)) {
+            return $this->constraint->notBlank('imgName', $value);
+        }
+        if($this->constraint->minLength($name, $value, 3)) {
+            return $this->constraint->minLength('imgName', $value, 3);
+        }
+        if($this->constraint->maxLength($name, $value, 100)) {
+            return $this->constraint->maxLength('imgName', $value, 100);
         }
     }
 }
