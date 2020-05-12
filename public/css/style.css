@@ -226,8 +226,15 @@ img .img-thumbnail
   color : #8c94a4;
 }
 
-.title a:hover
+/* Single */
+
+.single, h2.text-center
 {
-  text-decoration: none;
-  color: #ac8c6c;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.single a 
+{
+  color : #8c94a4;
 }

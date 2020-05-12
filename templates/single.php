@@ -1,20 +1,13 @@
 <?php $this->title = 'Article'; ?>
-<h1>Mon blog</h1>
-<p>En construction</p>
-<div>
-    <h2><?= htmlspecialchars($article->getTitle());?></h2>
+<div class="container single">
+    <img src="../public/img/<?= htmlspecialchars($article->getImgName());?>" class="img-thumbnail rounded mx-auto d-block"><br />
+    <a href="../public/index.php"><< Retour à l'accueil</a><br />
+    <h2 class="text-center"><em><u><?= htmlspecialchars($article->getTitle());?></u></em></h2>
+    <p class="info"> <i class="far fa-clock"></i> <?= htmlspecialchars($article->getCreatedAt());?></p>
     <p><?= ($article->getContent());?></p>
-    <p><?= htmlspecialchars($article->getAuthor());?></p>
-    <p>Créé le : <?= htmlspecialchars($article->getCreatedAt());?></p>
-</div>
+    <p><?= ($article->getContent());?></p>
+    <!-- <p>htmlspecialchars($article->getAuthor());?></p> -->
 <br>
-<div class="actions">
-    <a href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
-    <a href="../public/index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>">Supprimer</a>
-</div>
-<br>
-<a href="../public/index.php">Retour à l'accueil</a>
-<div id="comments" class="text-left" style="margin-left: 50px">
     <h3>Ajouter un commentaire</h3>
     <?php include('form_comment.php'); ?>
     <h3>Commentaires</h3>
