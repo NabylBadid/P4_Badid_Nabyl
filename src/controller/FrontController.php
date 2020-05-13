@@ -30,7 +30,7 @@ class FrontController extends Controller
             $errors = $this->validation->validate($post, 'Comment');
             if(!$errors) {
                 $this->commentDAO->addComment($post, $articleId);
-                $this->session->set('add_comment', 'Le nouveau commentaire a bien été ajouté');
+                $this->session->set('add_comment', 'Le nouveau commentaire a bien été ajouté !');
                 header('Location: ../public/index.php');
             }
             $article = $this->articleDAO->getArticle($articleId);
@@ -60,7 +60,7 @@ class FrontController extends Controller
             }
             if(!$errors) {
                 $this->userDAO->register($post);
-                $this->session->set('register', 'Votre inscription a bien été effectuée');
+                $this->session->set('register', 'Votre inscription a bien été effectuée !');
                 header('Location: ../public/index.php');
             }
             return $this->view->render('register', [
@@ -77,7 +77,7 @@ class FrontController extends Controller
         if($post->get('submit')) {
             $result = $this->userDAO->login($post);
             if($result && $result['isPasswordValid']) {
-                $this->session->set('login', 'Content de vous revoir');
+                $this->session->set('login', 'Content de vous revoir !');
                 $this->session->set('id', $result['result']['id']);
                 $this->session->set('role', $result['result']['name']);
                 $this->session->set('pseudo', $post->get('pseudo'));

@@ -234,7 +234,22 @@ img .img-thumbnail
   margin-bottom: 20px;
 }
 
-.single a 
+.link, .link:hover
 {
   color : #8c94a4;
 }
+
+.single h3
+{
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+/* add-article */
+
+h1
+{
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+

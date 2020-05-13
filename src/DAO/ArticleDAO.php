@@ -21,9 +21,7 @@ class ArticleDAO extends DAO
 
     public function getArticles()
     {
-        // $sql = 'SELECT article.id, article.title, article.content, user.pseudo, article.createdAt, article.imgName FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
-        // DATE_FORMAT(dateAjout, \'%d/%m/%Y à %Hh%imin%ss\') AS dateAjout
-        $sql = 'SELECT article.id, article.title, article.content, user.pseudo, article.imgName, DATE_FORMAT(article.createdAt, \'%d/%m/%Y %Hh%imin%ss\') AS createdAt FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
+        $sql = 'SELECT article.id, article.title, article.content, user.pseudo, article.imgName, DATE_FORMAT(article.createdAt, \'le %d/%m/%Y à %Hh%imin%ss\') AS createdAt FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
         $result = $this->createQuery($sql);
         $articles = [];
         foreach ($result as $row){
@@ -36,7 +34,7 @@ class ArticleDAO extends DAO
 
     public function getArticle($articleId)
     {
-        $sql = 'SELECT article.id, article.title, article.content, user.pseudo, article.createdAt, article.imgName FROM article INNER JOIN user ON article.user_id = user.id WHERE article.id = ?';
+        $sql = 'SELECT article.id, article.title, article.content, user.pseudo, DATE_FORMAT(article.createdAt, \'le %d/%m/%Y à %Hh%imin%ss\') AS createdAt, article.imgName FROM article INNER JOIN user ON article.user_id = user.id WHERE article.id = ?';
         $result = $this->createQuery($sql, [$articleId]);
         $article = $result->fetch();
         $result->closeCursor();

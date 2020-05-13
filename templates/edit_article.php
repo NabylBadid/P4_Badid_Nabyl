@@ -1,7 +1,10 @@
 <?php $this->title = "Modifier l'article"; ?>
-<h1>Mon blog</h1>
-<p>En construction</p>
-<div>
+<?php $this->script = 
+    '<script src="../public/js/tinymce/tinymce.min.js"></script>
+    <script src="../public/js/tinymce/optionsTinymce.js"></script>';
+?>
+
+<div class="container article">
     <?php include('form_article.php');?>
-    <a href="../public/index.php">Retour à l'accueil</a>
+    <a class="link" href="../public/index.php?route=administration"><< Retour à l'espace d'administration</a>
 </div>
