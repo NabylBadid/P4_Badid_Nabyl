@@ -1,18 +1,14 @@
-<?php $this->title = 'Administration'; ?>
-
-<h1>Mon blog</h1>
-<p>En construction</p>
-<?= var_dump($this->session); ?>
-<?= $this->session->show('error_login'); ?>
-<?php 
-
+<?php
+$this->title = 'Administration';
 $confirmed = $this->session->get('accesAdmin');
-
+$title = !empty($corfirmed) ? 'Administration' : 'Accès à l\'espace d\'administration'; 
 if ($confirmed)
 {
     ?>
+    <h1 class="text-center"><u><?= $title ?></u></h1>
+
     <h2>Articles</h2>
-    <a href="../public/index.php?route=addArticle">Nouvel article</a>
+    <a class="link" href="../public/index.php?route=addArticle">Nouvel article</a>
     <table>
         <tr>
             <td>Id</td>
@@ -109,18 +105,21 @@ if ($confirmed)
     <?php
 }
 else 
-{
-    echo 'Entrez identifiant et mot de passe';
+{    
     ?>
-    <div>
+    <h1 class="text-center"><u><?= $title ?></u></h1>
+    <div class="container form-group">
+        <p>Entrez identifiant et mot de passe</p>
         <form method="post" action="../public/index.php?route=administration">
             <label for="pseudo">Pseudo</label><br>
-            <input type="text" id="pseudo" name="pseudo"><br>
+            <input class="form-control" type="text" id="pseudo" name="pseudo"><br>
             <label for="password">Mot de passe</label><br>
-            <input type="password" id="password" name="password"><br>
-            <input type="submit" value="Valider" id="submit" name="submit">
+            <input class="form-control" type="password" id="password" name="password"><br>
+            <div class="alert alert-danger" role="alert">
+                <?= $this->session->show('error_login'); ?>
+            </div>
+            <input class="btn btn-secondary" type="submit" value="Valider" id="submit" name="submit">
         </form>
-        <a href="../public/index.php">Retour à l'accueil</a>
     </div>
     <?php
 }

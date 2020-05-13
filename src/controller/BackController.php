@@ -47,12 +47,8 @@ class BackController extends Controller
         // Formuliaire soumit
         if($post->get('submit'))
         {
-
             $result = $this->userDAO->accesAdmin();
-            $pseudo = $post->get('pseudo');
-            $pwd = $post->get('password');
-            // $isThePasswd = password_verify($post->get('password'), $result['password']); 
-            if($pseudo === $result['pseudo'] && password_verify($post->get('password'), $result['password']))
+            if($post->get('pseudo') === $result['pseudo'] && password_verify($post->get('password'), $result['password']))
             {
                 $this->session->set('accesAdmin', 'Bienvenue sur la page d\'administration');
 
@@ -78,7 +74,7 @@ class BackController extends Controller
                 $errors = $this->validation->validate($post, 'Article');
                 if (!$errors) {
                     $this->articleDAO->addArticle($post, $this->session->get('id'));
-                    $this->session->set('add_article', 'Le nouvel article a bien été ajouté');
+                    $this->session->set('add_article', 'Le nouvel article a bien été ajouté !');
                     header('Location: ../public/index.php?route=administration');
                 }
                 return $this->view->render('add_article', [
@@ -111,6 +107,8 @@ class BackController extends Controller
             $post->set('title', $article->getTitle());
             $post->set('content', $article->getContent());
             $post->set('author', $article->getAuthor());
+            $post->set('imgName', $article->getImgName());
+            
 
             return $this->view->render('edit_article', [
                 'post' => $post

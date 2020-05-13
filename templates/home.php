@@ -2,16 +2,7 @@
 
 <img src="../public/img/acceuil23.jpg" alt="Image d'acceuil" class="img-fluid img-thumbnail"><br />
 <div class="container books">
-<?= $this->session->show('add_article'); ?>
-<?= $this->session->show('edit_article'); ?>
-<?= $this->session->show('delete_article'); ?>
-<?= $this->session->show('add_comment'); ?>
-<?= $this->session->show('flag_comment'); ?>
-<?= $this->session->show('delete_comment'); ?>
-<?= $this->session->show('register'); ?>
-<?= $this->session->show('login'); ?>
-<?= $this->session->show('logout'); ?>
-<?= $this->session->show('delete_account'); ?>
+<?php include("showSession.php"); ?>
 <?php
 foreach ($articles as $article)
         {
