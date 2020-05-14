@@ -1,4 +1,5 @@
 <?php $this->title = "Connexion"; ?>
+<<<<<<< HEAD
 <?php include("form_user.php"); ?>
 
 <!-- <?= $this->session->show('error_login'); ?>
@@ -12,3 +13,6 @@
     </form>
     <a href="../public/index.php">Retour à l'accueil</a>
 </div> -->
+=======
+<?php include("form_user.php"); ?>
+>>>>>>> master

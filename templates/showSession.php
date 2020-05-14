@@ -9,7 +9,7 @@ $arraySession = array(
     $this->session->show('register'), 
     $this->session->show('login'), 
     $this->session->show('logout'), 
-    $this->session->show('delete_account'),
+    $this->session->show('delete_account')
 );
 
 foreach ($arraySession as $element)

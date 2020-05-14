@@ -253,3 +253,24 @@ h1
   margin-bottom: 50px;
 }
 
+/* Administration */
+
+.table
+{
+  background-color: #999fab;
+}
+thead
+{
+  background-color: #8c94a4;
+}
+
+/* Forms */
+
+.alert p
+{
+  margin-bottom: 0px;
+}
+div.alert
+{
+  margin: 15px 0px 15px 0px;
+}

@@ -6,6 +6,7 @@ if ($confirmed)
 {
     ?>
     <h1 class="text-center"><u><?= $title ?></u></h1>
+<<<<<<< HEAD
 
     <h2>Articles</h2>
     <a class="link" href="../public/index.php?route=addArticle">Nouvel article</a>
@@ -33,75 +34,117 @@ if ($confirmed)
                     <a href="../public/index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>">Supprimer</a>
                 </td>
             </tr>
+=======
+    <div class="container">
+        <h2>Articles</h2>
+        <table class="table table-hover table-bordered table-dark table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Contenu</th>
+                    <th scope="col">Auteur</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+>>>>>>> master
             <?php
-        }
-        ?>
-    </table>
-    
-    <h2>Commentaires signalés</h2>
-    <table>
-        <tr>
-            <td>Id</td>
-            <td>Pseudo</td>
-            <td>Message</td>
-            <td>Date</td>
-            <td>Actions</td>
-        </tr>
-        <?php
-        foreach ($comments as $comment)
-        {
+            foreach ($articles as $article)
+            {
+                ?>
+                <tbody>
+                    <tr>
+                        <th scope="row"><?= htmlspecialchars($article->getId());?></th>
+                        <td><a href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->getId());?>"><?= htmlspecialchars($article->getTitle());?></a></td>
+                        <td><?= substr(($article->getContent()), 0, 150);?></td>  <!-- substr() permet de limiter le nombre de caractères (1er paramètre : le contenu, 2ème paramètre : le premier caractère, 3ème paramètre : le dernier caractère) -->
+                        <td><?= htmlspecialchars($article->getAuthor());?></td>
+                        <td>Créé le : <?= htmlspecialchars($article->getCreatedAt());?></td>
+                        <td>
+                            <a href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
+                            <a href="../public/index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>">Supprimer</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <?php
+            }
             ?>
-            <tr>
-                <td><?= htmlspecialchars($comment->getId());?></td>
-                <td><?= htmlspecialchars($comment->getPseudo());?></td>
-                <td><?= substr(htmlspecialchars($comment->getContent()), 0, 150);?></td>
-                <td>Créé le : <?= htmlspecialchars($comment->getCreatedAt());?></td>
-                <td>
-                    <a href="../public/index.php?route=unflagComment&commentId=<?= $comment->getId(); ?>">Désignaler le commentaire</a>
-                    <a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>">Supprimer le commentaire</a>
-                </td>
-            </tr>
+        </table>
+        <a class="btn btn-primary" href="../public/index.php?route=addArticle">Nouvel article</a>
+        
+        <h2>Commentaires signalés</h2>
+        <table class="table table-hover table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Pseudo</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
             <?php
-        }
-        ?>
-    </table>
-    
-    <h2>Utilisateurs</h2>
-    <table>
-        <tr>
-            <td>Id</td>
-            <td>Pseudo</td>
-            <td>Date</td>
-            <td>Rôle</td>
-            <td>Actions</td>
-        </tr>
-        <?php
-        foreach ($users as $user)
-        {
+            foreach ($comments as $comment)
+            {
+                ?>
+                <tbody>
+                    <tr>
+                        <th scope="row"><?= htmlspecialchars($comment->getId());?></th>
+                        <td><?= htmlspecialchars($comment->getPseudo());?></td>
+                        <td><?= substr(htmlspecialchars($comment->getContent()), 0, 150);?></td>
+                        <td>Créé le : <?= htmlspecialchars($comment->getCreatedAt());?></td>
+                        <td>
+                            <a href="../public/index.php?route=unflagComment&commentId=<?= $comment->getId(); ?>">Désignaler le commentaire</a>
+                            <a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>">Supprimer le commentaire</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <?php
+            }
             ?>
-            <tr>
-                <td><?= htmlspecialchars($user->getId());?></td>
-                <td><?= htmlspecialchars($user->getPseudo());?></td>
-                <td>Créé le : <?= htmlspecialchars($user->getCreatedAt());?></td>
-                <td><?= htmlspecialchars($user->getRole());?></td>
-                <td>
-                    <?php
-                    if($user->getRole() != 'admin') {
-                    ?>
-                    <a href="../public/index.php?route=deleteUser&userId=<?= $user->getId(); ?>">Supprimer</a>
-                    <?php }
-                    else {
-                        ?>
-                    Suppression impossible
-                    <?php
-                    }
-                    ?>
-                </td>
-            </tr>
+        </table>
+        
+        <h2>Utilisateurs</h2>
+        <table class="table table-hover table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Pseudo</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Rôle</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
             <?php
-        }
-        ?>
-    </table>
+            foreach ($users as $user)
+            {
+                ?>
+                <tbody>
+                    <tr>
+                        <th scope="row"><?= htmlspecialchars($user->getId());?></th>
+                        <td><?= htmlspecialchars($user->getPseudo());?></td>
+                        <td>Créé le : <?= htmlspecialchars($user->getCreatedAt());?></td>
+                        <td><?= htmlspecialchars($user->getRole());?></td>
+                        <td>
+                            <?php
+                            if($user->getRole() != 'admin') {
+                            ?>
+                            <a href="../public/index.php?route=deleteUser&userId=<?= $user->getId(); ?>">Supprimer</a>
+                            <?php }
+                            else {
+                                ?>
+                            Suppression impossible
+                            <?php
+                            }
+                            ?>
+                        </td>
+                    </tr>    
+                </tbody>
+                <?php
+            }
+            ?>
+        </table>
+    </div>
     <?php
 }
 else 
@@ -115,9 +158,14 @@ else
             <input class="form-control" type="text" id="pseudo" name="pseudo"><br>
             <label for="password">Mot de passe</label><br>
             <input class="form-control" type="password" id="password" name="password"><br>
+<<<<<<< HEAD
             <div class="alert alert-danger" role="alert">
                 <?= $this->session->show('error_login'); ?>
             </div>
+=======
+            <?php $error_login = $this->session->get('error_login'); ?>
+            <?= $show_error = !empty($error_login) ? '<div class="alert alert-danger" role="alert">' . $error_login . '</div>': ''; ?>
+>>>>>>> master
             <input class="btn btn-secondary" type="submit" value="Valider" id="submit" name="submit">
         </form>
     </div>

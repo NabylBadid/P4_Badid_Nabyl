@@ -7,10 +7,10 @@ $submit = $route === 'addComment' ? 'Ajouter' : 'Mettre à jour';
     <form method="post" action="../public/index.php?route=<?= $route; ?>&articleId=<?= htmlspecialchars($article->getId()); ?>">
         <label for="pseudo">Pseudo</label><br>
         <input type="text" class="form-control" id="pseudo" name="pseudo" value="<?= isset($post) ? htmlspecialchars($post->get('pseudo')): ''; ?>"><br>
-        <?= isset($errors['pseudo']) ? $errors['pseudo'] : ''; ?>
+        <?= isset($errors['pseudo']) ? '<div class="alert alert-danger" role="alert">' . $errors['pseudo'] . '</div>': ''; ?>  
         <label for="content">Message</label><br>
         <textarea id="content" class="form-control" name="content"><?= isset($post) ? htmlspecialchars($post->get('content')): ''; ?></textarea><br>
-        <?= isset($errors['content']) ? $errors['content'] : ''; ?>
+        <?= isset($errors['content']) ? '<div class="alert alert-danger" role="alert">' . $errors['content'] . '</div>': ''; ?>  
         <input type="submit" class="btn btn-secondary" value="<?= $submit; ?>" id="submit" name="submit">
     </form>
 </div>
