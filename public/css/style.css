@@ -245,6 +245,22 @@ img .img-thumbnail
   text-decoration: underline;
 }
 
+.com
+{
+  background-color: #999fab;
+  height: 0.5px;
+}
+
+.dateCom
+{
+  font-size: 10px;
+}
+
+.buttonCom
+{
+  margin-left: 2%;
+}
+
 /* add-article */
 
 h1
@@ -252,6 +268,7 @@ h1
   margin-top: 50px;
   margin-bottom: 50px;
 }
+
 
 /* Administration */
 
@@ -273,4 +290,19 @@ thead
 div.alert
 {
   margin: 15px 0px 15px 0px;
+}
+
+/* updatePassword */
+
+.badge
+{
+  background-color: #ac8c6c;
+  color: #fff;
+}
+
+/* Titles */
+
+h1, h2, h3, h4
+{
+  text-decoration: underline;
 }

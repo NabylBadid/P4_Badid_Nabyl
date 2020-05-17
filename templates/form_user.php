@@ -6,7 +6,7 @@ $error_login = $this->session->get('error_login');
 $show_error = $this->title === 'Connexion' && !empty($error_login) ? '<div class="alert alert-danger" role="alert">' . $error_login . '</div>': ''; 
 ?>
 
-<h1 class="text-center"><u><?= $title ?></u></h1>
+<h1 class="text-center"><?= $title ?></h1>
 <div class="container form-group">
     <form method="post" action="../public/index.php?route=<?= $route; ?>">
         <label for="pseudo">Pseudo</label><br>

@@ -125,6 +125,36 @@ class BackController extends Controller
         }
     }
 
+    public function editComment(Parameter $post, $commentId, $articleId)
+    {
+        $article = $this->articleDAO->getArticle($articleId);
+        $comments = $this->commentDAO->getCommentsFromArticle($articleId);
+        $comment = $this->commentDAO->getComment($commentId);
+        if ($post->get('submit')) {
+            $errors = $this->validation->validate($post, 'Comment');
+            if (!$errors) {
+                $this->commentDAO->editComment($post, $commentId);
+                $this->session->set('edit_comment', 'Le commentaire a bien été modifié');
+                header('Location: ../public/index.php?route=article&articleId=' . $articleId);
+            }
+            return $this->view->render('edit_comment', [
+                'post' => $post,
+                'article' => $article,
+                'comment' => $comment,
+                'errors' => $errors
+            ]);
+        }
+        $post->set('content', $comment->getContent());
+        
+
+        return $this->view->render('edit_comment', [
+            'post' => $post,
+            'comment' => $comment,
+            'article' => $article,
+            'commentId' => $commentId
+        ]);
+    }
+
     public function unflagComment($commentId)
     {
         if($this->checkAdmin()) {
@@ -134,12 +164,13 @@ class BackController extends Controller
         }
     }
 
-    public function deleteComment($commentId)
+    public function deleteComment($commentId, $articleId)
     {
+        $this->commentDAO->getComment($commentId);
         if($this->checkAdmin()) {
             $this->commentDAO->deleteComment($commentId);
             $this->session->set('delete_comment', 'Le commentaire a bien été supprimé');
-            header('Location: ../public/index.php?route=administration');
+            header('Location: ../public/index.php?route=article&articleId=' . $articleId);
         }
     }
 

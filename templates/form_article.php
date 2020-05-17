@@ -4,7 +4,7 @@ $submit = $route === 'addArticle' ? 'Envoyer' : 'Mettre à jour';
 $title = $route === 'addArticle' ? 'Ajouter un article' : 'Mettre à jour l\'article';
 ?>
 <div class="form-group">
-    <h1 class="text-center"><u><?= $title ?></u></h1>
+    <h1 class="text-center"><?= $title ?></h1>
 
     <form method="post" action="../public/index.php?route=<?= $route; ?>">
         <label for="title">Titre</label><br>

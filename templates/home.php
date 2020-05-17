@@ -29,5 +29,6 @@ foreach ($articles as $article)
             <?php
         }
 ?>
+
 </div>
 
