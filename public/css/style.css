@@ -267,6 +267,7 @@ h1
 {
   margin-top: 50px;
   margin-bottom: 50px;
+  text-align: center;
 }
 
 
@@ -305,4 +306,21 @@ div.alert
 h1, h2, h3, h4
 {
   text-decoration: underline;
+}
+
+/* Profile */
+
+.titleCom
+{
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
+}
+
+.comments
+{
+  background-color: #8c94a4;
+  color: white;
+  border: 1px black solid;
+  padding: 10px;
+  margin-bottom: 10px;
 }

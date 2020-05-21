@@ -31,6 +31,23 @@ class CommentDAO extends DAO
         return $comments;
     }
 
+    public function getCommentsFromUser($userId)
+    {
+        // Jointure avec INNER JOIN (normalisée)
+        $sql = 'SELECT comment.id, comment.pseudo, comment.content, comment.flag, DATE_FORMAT(comment.createdAt, \'le %d/%m/%Y à %Hh%imin%ss\') AS createdAt, comment.articleId, article.title FROM comment INNER JOIN article ON comment.articleId = article.id AND comment.pseudo = ? ORDER BY createdAt DESC';
+        // Jointure avce WHERE (dénormalisée ou ancienne)
+        // $sql = 'SELECT comment.id, comment.pseudo, comment.content, comment.flag, DATE_FORMAT(comment.createdAt, \'le %d/%m/%Y à %Hh%imin%ss\') AS createdAt, comment.articleId, article.title FROM comment, article WHERE comment.articleId = article.id AND comment.pseudo = ? ORDER BY comment.createdAt DESC';
+
+        $result = $this->createQuery($sql, [$userId]);
+        $comments = [];
+        foreach ($result as $row) {
+            $commentId = $row['id'];
+            $comments[$commentId] = $this->buildObject($row);
+        }
+        $result->closeCursor();
+        return $comments;
+    }
+
     public function getComment($commentId)
     {
         $sql = 'SELECT * FROM comment WHERE id = ?';

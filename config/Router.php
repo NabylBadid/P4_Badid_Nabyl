@@ -61,7 +61,7 @@ class Router
                     $this->frontController->login($this->request->getPost());
                 }
                 elseif($route === 'profile'){
-                    $this->backController->profile();
+                    $this->backController->profile($this->request->getGet()->get('pseudo'));
                 }
                 elseif($route === 'updatePassword'){
                     $this->backController->updatePassword($this->request->getPost());

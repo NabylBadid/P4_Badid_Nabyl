@@ -7,7 +7,8 @@
     <br>
     <?php 
     include('form_comment.php');
-    include('showSession.php');
+    // include('showSession.php');
+    $this->session->show('add_comment');
     ?>
     <br /> <h3>Commentaires</h3><br />
 

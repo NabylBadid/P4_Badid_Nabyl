@@ -8,6 +8,7 @@ $this->script =
     <script src="../public/js/tinymce/optionsTinymce.js"></script>';
 ?>
 
+
 <div class="form-group">
     <?= $title; ?>
     <form method="post" action="../public/index.php?route=<?= $route; ?>&articleId=<?= htmlspecialchars($article->getId()); ?>">

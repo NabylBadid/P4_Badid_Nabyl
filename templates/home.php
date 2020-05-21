@@ -2,7 +2,8 @@
 
 <img src="../public/img/acceuil23.jpg" alt="Image d'acceuil" class="img-fluid img-thumbnail"><br />
 <div class="container books">
-<?php include("showSession.php"); ?>
+<?php include("showSession.php"); 
+?>
 <?php
 foreach ($articles as $article)
         {

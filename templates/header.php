@@ -18,7 +18,7 @@
                     <a class="nav-link" href="../public/index.php?route=logout">Déconnexion</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../public/index.php?route=profile">Profil</a>
+                    <a class="nav-link" href="../public/index.php?route=profile&pseudo=<?= $this->session->get('pseudo') ?>">Profil</a>
                 </li>
                     <?php if($this->session->get('role') === 'admin') { ?>
                 <li class="nav-item">
