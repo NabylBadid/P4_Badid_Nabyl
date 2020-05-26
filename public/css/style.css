@@ -18,7 +18,7 @@ nav
     background-color: #332c25;
     color: #e3e2de;
 }
-nav a 
+nav a
 {
     text-decoration: none;
     color: #e3e2de;
@@ -65,7 +65,7 @@ transition: .5s ease-in-out;
 cursor: pointer;
 }
 
-.animated-icon span 
+.animated-icon span
 {
 display: block;
 position: absolute;
@@ -221,9 +221,28 @@ img .img-thumbnail
   font-size: 10px;
 }
 
-.title a 
+.title a
 {
   color : #8c94a4;
+}
+
+.linkHome
+{
+  text-decoration: none;
+}
+
+.img
+{
+  position: relative;
+}
+
+.showSession
+{
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  opacity: 0.9;
+  transform: translate(-50%);
 }
 
 /* Single */
@@ -245,20 +264,30 @@ img .img-thumbnail
   text-decoration: underline;
 }
 
-.com
-{
-  background-color: #999fab;
-  height: 0.5px;
-}
-
 .dateCom
 {
   font-size: 10px;
 }
 
-.buttonCom
+.delete
 {
   margin-left: 2%;
+}
+
+.buttonCom
+{
+  margin-bottom: 0;
+}
+
+.list-group
+{
+  background-color : #e3e2de;
+  margin-bottom: 20px;
+}
+
+.flagedCom
+{
+  margin-bottom: 0;
 }
 
 /* add-article */
@@ -275,22 +304,34 @@ h1
 
 .table
 {
+  margin-bottom: 50px;
   background-color: #999fab;
 }
+
 thead
 {
   background-color: #8c94a4;
+}
+
+.newArticle
+{
+  margin-bottom: 30px;
+}
+
+.italic
+{
+  font-style: italic;
 }
 
 /* Forms */
 
 .alert p
 {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 div.alert
 {
-  margin: 15px 0px 15px 0px;
+  margin: 15px 0 15px 0;
 }
 
 /* updatePassword */
@@ -303,24 +344,14 @@ div.alert
 
 /* Titles */
 
-h1, h2, h3, h4
+h1, h2, h3
 {
   text-decoration: underline;
 }
 
 /* Profile */
 
-.titleCom
+.list-group-item p 
 {
-  border-bottom: 1px solid black;
-  padding-bottom: 5px;
-}
-
-.comments
-{
-  background-color: #8c94a4;
-  color: white;
-  border: 1px black solid;
-  padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 0;
 }

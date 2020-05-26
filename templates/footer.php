@@ -12,11 +12,11 @@
 
       <!-- Content -->
       <h5 class="text-uppercase">Jean Forteroche</h5>
-      <p>Jean Forteroche, auteur, écrivain, et maintenant bloggeur ... Tout a commencé dans la chambre d'adolescent de Jean, moment très critique dans une vie à vrai dire, 
-         où Jean commença à écrire ses premières lignes, pensant dans un premier temps que cela été réservé à une certaine catégorie de personnes, à une certaine élite,
-         à la crême de la crême... Puis de fil en aiguille, Jean écrivis, encore et encore, jusqu'à publié son premier livre, qui fût à sa grande surprise, une réussite.
-         Jean décida de partager ses livres, éxperiences et découvertes à travers un blog que voici, époque oblige. Son dernier roman "Billet simple pour l'Alaska" est rempli
-         d'anectodes à couper le soufle ... 
+      <p>Jean Forteroche, auteur, écrivain. Tout a commencé dans la chambre d'adolescent de Jean, où Jean commença à écrire ses premières lignes, 
+         pensant dans un premiertemps que cela été réservé à une certaine catégorie de personnes, à une certaine élite,
+         à la crême de la crême... Puis de fil en aiguille, Jean écrivis, encore et encore, jusqu'à publié son premier livre, qui fit un tabac !
+         Jean décida de partager ses livres, ses éxperiences et ses découvertes à travers un blog que voici, époque oblige. 
+         Son dernier roman "Billet simple pour l'Alaska" est rempli d'anectodes à couper le soufle ... 
       </p>
       <div class="icons">
         <a target="_blank" title="Facebook" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>

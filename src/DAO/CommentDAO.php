@@ -15,12 +15,13 @@ class CommentDAO extends DAO
         $comment->setContent($row['content']);
         $comment->setCreatedAt($row['createdAt']);
         $comment->setFlag($row['flag']);
+        $comment->setArticleId($row['articleId']);
         return $comment;
     }
 
     public function getCommentsFromArticle($articleId)
     {
-        $sql = 'SELECT id, pseudo, content, flag, DATE_FORMAT(createdAt, \'le %d/%m/%Y à %Hh%imin%ss\') AS createdAt FROM comment WHERE articleId = ? ORDER BY createdAt DESC';
+        $sql = 'SELECT id, pseudo, content, flag, DATE_FORMAT(createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, articleId FROM comment WHERE articleId = ? ORDER BY createdAt DESC';
         $result = $this->createQuery($sql, [$articleId]);
         $comments = [];
         foreach ($result as $row) {
@@ -34,10 +35,17 @@ class CommentDAO extends DAO
     public function getCommentsFromUser($userId)
     {
         // Jointure avec INNER JOIN (normalisée)
-        $sql = 'SELECT comment.id, comment.pseudo, comment.content, comment.flag, DATE_FORMAT(comment.createdAt, \'le %d/%m/%Y à %Hh%imin%ss\') AS createdAt, comment.articleId, article.title FROM comment INNER JOIN article ON comment.articleId = article.id AND comment.pseudo = ? ORDER BY createdAt DESC';
-        // Jointure avce WHERE (dénormalisée ou ancienne)
+        $sql = 'SELECT comment.id, comment.pseudo, comment.content, comment.flag, DATE_FORMAT(comment.createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, comment.articleId, article.title FROM comment INNER JOIN article ON comment.articleId = article.id AND comment.pseudo = ? ORDER BY createdAt DESC';
+        // Jointure avec WHERE (dénormalisée ou ancienne)
         // $sql = 'SELECT comment.id, comment.pseudo, comment.content, comment.flag, DATE_FORMAT(comment.createdAt, \'le %d/%m/%Y à %Hh%imin%ss\') AS createdAt, comment.articleId, article.title FROM comment, article WHERE comment.articleId = article.id AND comment.pseudo = ? ORDER BY comment.createdAt DESC';
 
+        // Retourne un tableau avec tout les résultats
+        // $result2 = $this->createQuery($sql, [$userId]);
+        // $comments2 = $result2->fetchAll();
+        // $result2->closeCursor();
+        // return $comments2;
+
+        // Code tuto
         $result = $this->createQuery($sql, [$userId]);
         $comments = [];
         foreach ($result as $row) {
@@ -92,7 +100,7 @@ class CommentDAO extends DAO
 
     public function getFlagComments()
     {
-        $sql = 'SELECT id, pseudo, content, createdAt, flag, articleId FROM comment WHERE flag = ? ORDER BY createdAt DESC';
+        $sql = 'SELECT id, pseudo, content, DATE_FORMAT(createdAt, \'le %d/%m/%Y à %Hh%imin%ss\') AS createdAt, flag, articleId FROM comment WHERE flag = ? ORDER BY createdAt DESC';
         $result = $this->createQuery($sql, [1]);
         $comments = [];
         foreach ($result as $row) {

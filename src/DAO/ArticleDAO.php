@@ -21,7 +21,7 @@ class ArticleDAO extends DAO
 
     public function getArticles()
     {
-        $sql = 'SELECT article.id, article.title, article.content, user.pseudo, article.imgName, DATE_FORMAT(article.createdAt, \'le %d/%m/%Y à %Hh%imin%ss\') AS createdAt FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
+        $sql = 'SELECT article.id, article.title, article.content, user.pseudo, article.imgName, DATE_FORMAT(article.createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
         $result = $this->createQuery($sql);
         $articles = [];
         foreach ($result as $row){
@@ -34,7 +34,7 @@ class ArticleDAO extends DAO
 
     public function getArticle($articleId)
     {
-        $sql = 'SELECT article.id, article.title, article.content, user.pseudo, DATE_FORMAT(article.createdAt, \'le %d/%m/%Y à %Hh%imin%ss\') AS createdAt, article.imgName FROM article INNER JOIN user ON article.user_id = user.id WHERE article.id = ?';
+        $sql = 'SELECT article.id, article.title, article.content, user.pseudo, DATE_FORMAT(article.createdAt, \' %d/%m/%Y à %Hh%imin%ss\') AS createdAt, article.imgName FROM article INNER JOIN user ON article.user_id = user.id WHERE article.id = ?';
         $result = $this->createQuery($sql, [$articleId]);
         $article = $result->fetch();
         $result->closeCursor();
@@ -49,10 +49,11 @@ class ArticleDAO extends DAO
 
     public function editArticle(Parameter $post, $articleId, $userId)
     {
-        $sql = 'UPDATE article SET title=:title, content=:content, user_id=:user_id WHERE id=:articleId';
+        $sql = 'UPDATE article SET title=:title, content=:content, imgName=:imgName, user_id=:user_id WHERE id=:articleId';
         $this->createQuery($sql, [
             'title' => $post->get('title'),
             'content' => $post->get('content'),
+            'imgName' => $post->get('imgName'),
             'user_id' => $userId,
             'articleId' => $articleId
         ]);
@@ -60,7 +61,7 @@ class ArticleDAO extends DAO
 
     public function deleteArticle($articleId)
     {
-        $sql = 'DELETE FROM comment WHERE article_id = ?';
+        $sql = 'DELETE FROM comment WHERE articleId = ?';
         $this->createQuery($sql, [$articleId]);
         $sql = 'DELETE FROM article WHERE id = ?';
         $this->createQuery($sql, [$articleId]);

@@ -19,6 +19,11 @@ class Comment
      */
     private $content;
 
+        /**
+     * @var string
+     */
+    private $articleId;
+
     /**
      * @var \DateTime
      */
@@ -75,6 +80,22 @@ class Comment
     public function setContent($content)
     {
         $this->content = $content;
+    }
+
+        /**
+     * @return string
+     */
+    public function getArticleId()
+    {
+        return $this->articleId;
+    }
+
+    /**
+     * @param string $articleId
+     */
+    public function setArticleId($articleId)
+    {
+        $this->articleId = $articleId;
     }
 
     /**

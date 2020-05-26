@@ -19,7 +19,7 @@ class UserDAO extends DAO
 
     public function getUsers()
     {
-        $sql = 'SELECT user.id, user.pseudo, user.createdAt, role.name FROM user INNER JOIN role ON user.role_id = role.id ORDER BY user.id DESC';
+        $sql = 'SELECT user.id, user.pseudo, DATE_FORMAT(user.createdAt, \'le %d/%m/%Y\') AS createdAt, role.name FROM user INNER JOIN role ON user.role_id = role.id ORDER BY user.id DESC';
         $result = $this->createQuery($sql);
         $users = [];
         foreach ($result as $row){

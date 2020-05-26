@@ -1,7 +1,7 @@
 <?php
 $this->title = 'Administration';
 $confirmed = $this->session->get('accesAdmin');
-$title = !empty($corfirmed) ? 'Administration' : 'Accès à l\'espace d\'administration'; 
+$title = !empty($confirmed) ? 'Administration' : 'Accès à l\'espace d\'administration'; 
 if ($confirmed)
 {
     ?>
@@ -29,7 +29,7 @@ if ($confirmed)
                         <td><a href="../public/index.php?route=article&articleId=<?= htmlspecialchars($article->getId());?>"><?= htmlspecialchars($article->getTitle());?></a></td>
                         <td><?= substr(($article->getContent()), 0, 150);?></td>  <!-- substr() permet de limiter le nombre de caractères (1er paramètre : le contenu, 2ème paramètre : le premier caractère, 3ème paramètre : le dernier caractère) -->
                         <td><?= htmlspecialchars($article->getAuthor());?></td>
-                        <td>Créé le : <?= htmlspecialchars($article->getCreatedAt());?></td>
+                        <td><span class="italic"> posté le</span> : <?= htmlspecialchars($article->getCreatedAt());?></td>
                         <td>
                             <a href="../public/index.php?route=editArticle&articleId=<?= $article->getId(); ?>">Modifier</a>
                             <a href="../public/index.php?route=deleteArticle&articleId=<?= $article->getId(); ?>">Supprimer</a>
@@ -40,10 +40,10 @@ if ($confirmed)
             }
             ?>
         </table>
-        <a class="btn btn-primary" href="../public/index.php?route=addArticle">Nouvel article</a>
+        <a class="btn btn-primary newArticle" href="../public/index.php?route=addArticle">Nouvel article</a>
         
         <h2>Commentaires signalés</h2>
-        <table class="table table-hover table-bordered table-dark">
+        <table class="table table-hover table-bordered table-dark table-responsive-md">
             <thead>
                 <tr>
                     <th scope="col">Id</th>
@@ -62,9 +62,9 @@ if ($confirmed)
                         <th scope="row"><?= htmlspecialchars($comment->getId());?></th>
                         <td><?= htmlspecialchars($comment->getPseudo());?></td>
                         <td><?= substr(htmlspecialchars($comment->getContent()), 0, 150);?></td>
-                        <td>Créé le : <?= htmlspecialchars($comment->getCreatedAt());?></td>
+                        <td><span class="italic">posté le</span> : <?= htmlspecialchars($comment->getCreatedAt());?></td>
                         <td>
-                            <a href="../public/index.php?route=unflagComment&commentId=<?= $comment->getId(); ?>">Désignaler le commentaire</a>
+                            <a href="../public/index.php?route=unflagComment&commentId=<?= $comment->getId(); ?>">Désignaler le commentaire</a><br />
                             <a href="../public/index.php?route=deleteComment&commentId=<?= $comment->getId(); ?>">Supprimer le commentaire</a>
                         </td>
                     </tr>
@@ -75,7 +75,7 @@ if ($confirmed)
         </table>
         
         <h2>Utilisateurs</h2>
-        <table class="table table-hover table-bordered table-dark">
+        <table class="table table-hover table-bordered table-dark table-responsive-md">
             <thead>
                 <tr>
                     <th scope="col">Id</th>
@@ -93,7 +93,7 @@ if ($confirmed)
                     <tr>
                         <th scope="row"><?= htmlspecialchars($user->getId());?></th>
                         <td><?= htmlspecialchars($user->getPseudo());?></td>
-                        <td>Créé le : <?= htmlspecialchars($user->getCreatedAt());?></td>
+                        <td><span class="italic">créé le</span> : <?= htmlspecialchars($user->getCreatedAt());?></td>
                         <td><?= htmlspecialchars($user->getRole());?></td>
                         <td>
                             <?php
