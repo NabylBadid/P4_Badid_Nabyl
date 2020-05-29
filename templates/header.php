@@ -20,7 +20,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../public/index.php?route=profile&pseudo=<?= $this->session->get('pseudo') ?>">Profil</a>
                 </li>
-                    <?php if($this->session->get('role') === 'admin') { ?>
+                    <?php if ($this->session->get('role') === 'administrateur') { ?>
                 <li class="nav-item">
                     <a class="nav-link" href="../public/index.php?route=administration">Administration</a>
                 </li>

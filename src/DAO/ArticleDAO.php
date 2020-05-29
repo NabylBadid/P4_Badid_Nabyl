@@ -10,12 +10,15 @@ class ArticleDAO extends DAO
     private function buildObject($row)
     {
         $article = new Article();
-        $article->setId($row['id']);
-        $article->setTitle($row['title']);
-        $article->setContent($row['content']);
-        $article->setAuthor($row['pseudo']);
-        $article->setCreatedAt($row['createdAt']);
-        $article->setImgName($row['imgName']);
+        $article // Principe de chaînage des methodes
+            ->setId($row['id'])
+            ->setTitle($row['title'])
+            ->setContent($row['content'])
+            ->setPseudo($row['pseudo'])
+            ->setCreatedAt($row['createdAt'])
+            ->setImgName($row['imgName'])
+        ;
+        
         return $article;
     }
 
@@ -23,7 +26,19 @@ class ArticleDAO extends DAO
     {
         $sql = 'SELECT article.id, article.title, article.content, user.pseudo, article.imgName, DATE_FORMAT(article.createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt FROM article INNER JOIN user ON article.user_id = user.id ORDER BY article.id DESC';
         $result = $this->createQuery($sql);
-        $articles = [];
+        // $articles = [];
+        // while ($data = $result->fetch(\PDO::FETCH_ASSOC)) {
+        //     $articles[] = new Article($data);
+        // }
+        // return $articles;
+
+        // $articles = [];
+
+        // $result->setFetchMode(\PDO::FETCH_CLASS, \PDO::FETCH_PROPS_LATE, 'Article');
+
+        // $articles = $result->fetchAll();
+
+        // return $articles;
         foreach ($result as $row){
             $articleId = $row['id'];
             $articles[$articleId] = $this->buildObject($row);
@@ -36,6 +51,10 @@ class ArticleDAO extends DAO
     {
         $sql = 'SELECT article.id, article.title, article.content, user.pseudo, DATE_FORMAT(article.createdAt, \' %d/%m/%Y à %Hh%imin%ss\') AS createdAt, article.imgName FROM article INNER JOIN user ON article.user_id = user.id WHERE article.id = ?';
         $result = $this->createQuery($sql, [$articleId]);
+        // $data = $result->fetch(\PDO::FETCH_ASSOC);
+        // $article = new Article($data);
+        // return $article;
+
         $article = $result->fetch();
         $result->closeCursor();
         return $this->buildObject($article);

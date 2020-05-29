@@ -2,6 +2,8 @@
 
 namespace App\src\model;
 
+use DateTime;
+
 class User
 {
     /**
@@ -20,7 +22,7 @@ class User
     private $password;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $createdAt;
 
@@ -29,56 +31,64 @@ class User
      */
     private $role;
 
+
+    /**
+     * Constructeur de la classe qui assigne les données spécifiées en paramètre aux attributs correspondants.
+     * @param $valeurs array Les valeurs à assigner
+     * @return void
+     */
+    public function __construct($values = [])
+    {
+        if (!empty($values)) {
+            $this->hydrate($values);
+        }
+    }
+
+    /**
+     * Méthode assignant les valeurs spécifiées aux attributs correspondant.
+     * @param $donnees array Les données à assigner
+     * @return void
+     */
+    public function hydrate($data)
+    {
+        foreach ($data as $attribut => $value) {
+            $method = 'set'.ucfirst($attribut);
+
+            if (is_callable([$this, $method])) {
+                $this->$method($value);
+            }
+        }
+    }
+
+
+    // GETTERS
+
     /**
      * @return int
      */
-    public function getId()
+    public function getId() : ?int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return string
      */
-    public function getPseudo()
+    public function getPseudo() : ?string
     {
         return $this->pseudo;
     }
 
     /**
-     * @param string $pseudo
-     */
-    public function setPseudo($pseudo)
-    {
-        $this->pseudo = $pseudo;
-    }
-
-    /**
      * @return string
      */
-    public function getPassword()
+    public function getPassword() : ?string
     {
         return $this->password;
     }
 
     /**
-     * @param string $password
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
-
-    /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCreatedAt()
     {
@@ -86,27 +96,64 @@ class User
     }
 
     /**
-     * @param \DateTime $createdAt
+     * @return string
      */
-    public function setCreatedAt($createdAt)
+    public function getRole()  : ?string
     {
-        $this->createdAt = $createdAt;
+        return $this->role;
+    }
+
+    
+    // SETTERS
+
+    
+    /**
+     * @param int $id
+     */
+    public function setId(?int $id) : self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
-     * @return string
+     * @param string $pseudo
      */
-    public function getRole()
+    public function setPseudo(?string $pseudo)  : self
     {
-        return $this->role;
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt)  : self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(?string $password)  : self
+    {
+        $this->password = $password;
+
+        return $this;
     }
 
     /**
      * @param string $role
      */
-    public function setRole($role)
+    public function setRole($role)  : self
     {
         $this->role = $role;
+
+        return $this;
     }
-    
 }

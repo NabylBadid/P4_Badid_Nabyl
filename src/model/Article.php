@@ -2,6 +2,8 @@
 
 namespace App\src\model;
 
+use DateTime;
+
 class Article
 {
     /**
@@ -22,7 +24,7 @@ class Article
     /**
      * @var string
      */
-    private $author;
+    private $pseudo;
 
     /**
      * @var string
@@ -30,103 +32,152 @@ class Article
     private $imgName;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $createdAt;
+
+
+    /**
+     * Constructeur de la classe qui assigne les données spécifiées en paramètre aux attributs correspondants.
+     * @param $valeurs array Les valeurs à assigner
+     * @return void
+     */
+    public function __construct($values = [])
+    {
+        if (!empty($values)) {
+            $this->hydrate($values);
+        }
+    }
+
+    /**
+     * Méthode assignant les valeurs spécifiées aux attributs correspondant.
+     * @param $donnees array Les données à assigner
+     * @return void
+     */
+    public function hydrate($data)
+    {
+        foreach ($data as $attribut => $value) {
+            $method = 'set'.ucfirst($attribut);
+
+            if (is_callable([$this, $method])) {
+                $this->$method($value);
+            }
+        }
+    }
+
+
+    // GETTERS
+
 
     /**
      * @return int
      */
-    public function getId()
+    public function getId() : ?int // = retourne soit un int soit null
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle() : ?string
     {
         return $this->title;
     }
-
-    /**
-     * @param string $title
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-    }
-
+    
     /**
      * @return string
      */
-    public function getContent()
+    public function getContent() : ?string
     {
         return $this->content;
     }
 
     /**
-     * @param string $content
+     * @return string
      */
-    public function setContent($content)
+    public function getPseudo() : ?string
     {
-        $this->content = $content;
+        return $this->pseudo;
     }
-
+    
     /**
      * @return string
      */
-    public function getAuthor()
-    {
-        return $this->author;
-    }
-
-    /**
-     * @param string $author
-     */
-    public function setAuthor($author)
-    {
-        $this->author = $author;
-    }
-
-    /**
-     * @return string
-     */
-    public function getImgName()
+    public function getImgName() : ?string
     {
         return $this->imgName;
     }
-
+    
     /**
-     * @param string $imgName
-     */
-    public function setImgName($imgName)
-    {
-        $this->imgName = $imgName;
-    }
-
-    /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCreatedAt()
     {
         return $this->createdAt;
     }
 
+
+    // SETTERS
+
+    
     /**
-     * @param \DateTime $createdAt
+     * @param int $id
      */
-    public function setCreatedAt($createdAt)
+    public function setId(?int $id) : self // = prend en parametre soit un int soit un null et se renvoi lui-même
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle(?string $title) : self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * @param string $content
+     */
+    public function setContent(?string $content) : self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * @param string $pseudo
+     */
+    public function setPseudo($pseudo) : self
+    {
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @param string $imgName
+     */
+    public function setImgName($imgName) : self
+    {
+        $this->imgName = $imgName;
+
+        return $this;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt) : self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
     }
 }

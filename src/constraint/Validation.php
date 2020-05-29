@@ -6,7 +6,7 @@ class Validation
 {
     public function validate($data, $name)
     {
-        if($name === 'Article') {
+        if ($name === 'Article') {
             $articleValidation = new ArticleValidation();
             $errors = $articleValidation->check($data);
             return $errors;

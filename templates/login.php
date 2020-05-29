@@ -1,2 +1,3 @@
-<?php $this->title = "Connexion"; ?>
-<?php include("form_user.php"); ?>
+<?php
+$this->title = "Connexion";
+include("form_user.php");

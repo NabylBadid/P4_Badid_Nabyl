@@ -6,15 +6,13 @@
     <h3>Les commentaires que vous avez posté :</h3><br />
     
 <?php
-// var_dump($comments);
-    foreach ($comments as $comment)
-    {
+    foreach ($comments as $comment) {
         ?>
         <div class="list-group">
             <div class="list-group-item list-group-item-secondary">
                 <div class="d-flex w-100 justify-content-between">
-                    <h4 class="d-flex justify-content-between titleCom"><?= htmlspecialchars($comment->getPseudo());?><span class="dateCom"></h4>
-                    <small><span class="italic">posté le</span> : <?= htmlspecialchars($comment->getCreatedAt());?></span></small>
+                    <h4 class="d-flex justify-content-between titleCom"><?= htmlspecialchars($comment->getPseudo()); ?><span class="dateCom"></h4>
+                    <small><span class="italic">posté le</span> : <?= htmlspecialchars($comment->getCreatedAt()); ?></span></small>
                 </div>
             </div>
             <div class="list-group-item">

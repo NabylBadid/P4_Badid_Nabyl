@@ -1,2 +1,3 @@
-<?php $this->title = "Inscription"; ?>
-<?php include("form_user.php"); ?>
+<?php
+$this->title = "Inscription";
+include("form_user.php");

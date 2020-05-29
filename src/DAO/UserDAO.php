@@ -10,18 +10,22 @@ class UserDAO extends DAO
     private function buildObject($row)
     {
         $user = new User();
-        $user->setId($row['id']);
-        $user->setPseudo($row['pseudo']);
-        $user->setCreatedAt($row['createdAt']);
-        $user->setRole($row['name']);
+        $user
+            ->setId($row['id'])
+            ->setPseudo($row['pseudo'])
+            ->setCreatedAt($row['createdAt'])
+            ->setRole($row['role'])
+        ;
+
         return $user;
     }
 
     public function getUsers()
     {
-        $sql = 'SELECT user.id, user.pseudo, DATE_FORMAT(user.createdAt, \'le %d/%m/%Y\') AS createdAt, role.name FROM user INNER JOIN role ON user.role_id = role.id ORDER BY user.id DESC';
+        $sql = 'SELECT id, pseudo, DATE_FORMAT(createdAt, \'le %d/%m/%Y\') AS createdAt, role FROM user ORDER BY user.id DESC';
         $result = $this->createQuery($sql);
         $users = [];
+
         foreach ($result as $row){
             $userId = $row['id'];
             $users[$userId] = $this->buildObject($row);
@@ -33,7 +37,7 @@ class UserDAO extends DAO
     public function register(Parameter $post)
     {
         $this->checkUser($post);
-        $sql = 'INSERT INTO user (pseudo, password, createdAt, role_id) VALUES (?, ?, NOW(), ?)';
+        $sql = 'INSERT INTO user (pseudo, password, createdAt, role) VALUES (?, ?, NOW(), ?)';
         $this->createQuery($sql, [$post->get('pseudo'), password_hash($post->get('password'), PASSWORD_BCRYPT), 2]);
     }
 
@@ -42,20 +46,20 @@ class UserDAO extends DAO
         $sql = 'SELECT COUNT(pseudo) FROM user WHERE pseudo = ?';
         $result = $this->createQuery($sql, [$post->get('pseudo')]);
         $isUnique = $result->fetchColumn();
-        if($isUnique) {
+        if ($isUnique) {
             return '<p>Le pseudo existe déjà</p>';
         }
     }
 
     public function login(Parameter $post)
     {
-        $sql = 'SELECT user.id, user.role_id, user.password, role.name FROM user INNER JOIN role ON role.id = user.role_id WHERE pseudo = ?';
+        $sql = 'SELECT id, password, role FROM user WHERE pseudo = ?';
         $data = $this->createQuery($sql, [$post->get('pseudo')]);
         $result = $data->fetch();
         $isPasswordValid = password_verify($post->get('password'), $result['password']);
         return [
             'result' => $result,
-            'isPasswordValid' => $isPasswordValid
+            'isPasswordValid' => $isPasswordValid,
         ];
     }
 
@@ -84,13 +88,4 @@ class UserDAO extends DAO
         $result = $data->fetch(\PDO::FETCH_ASSOC);
         return $result;
     }
-
-    // public function accesAdmin(Parameter $post)
-    // {
-    //     $sql = 'SELECT * FROM admin WHERE pseudo = ?, password = ?';
-    //     $data = $this->createQuery($sql, [$post->get('pseudo'), $post->get('password')]);
-    //     $result = $data->fetch();
-    //     return $result;
-    // }
-
 }

@@ -3,7 +3,7 @@ $route = isset($_GET['commentId']) ? 'editComment&commentId=' . htmlspecialchars
 $submit = $route === 'addComment' ? 'Ajouter' : 'Mettre à jour';
 $title = $route === 'addComment' ? '<h3> Ajouter un commentaire </h3>' : '<h1> Mettre à jour le commentaire </h1>';
 $pseudo = $this->session->get('pseudo');
-$this->script = 
+$this->script =
     '<script src="../public/js/tinymce/tinymce.min.js"></script>
     <script src="../public/js/tinymce/optionsTinymce.js"></script>';
 ?>

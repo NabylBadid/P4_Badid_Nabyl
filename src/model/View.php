@@ -8,7 +8,7 @@ class View
 {
     private $file;
     private $title;
-    private $script; 
+    private $script;
     private $request;
     private $session;
 
@@ -26,14 +26,14 @@ class View
             'title' => $this->title,
             'content' => $content,
             'session' => $this->session,
-            'script' => $this->script 
+            'script' => $this->script
         ]);
         echo $view;
     }
 
     private function renderFile($file, $data)
     {
-        if(file_exists($file)){
+        if (file_exists($file)) {
             extract($data);
             ob_start();
             require $file;

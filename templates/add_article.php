@@ -1,5 +1,5 @@
 <?php $this->title = "Nouvel article"; ?>
-<?php $this->script = 
+<?php $this->script =
     '<script src="../public/js/tinymce/tinymce.min.js"></script>
     <script src="../public/js/tinymce/optionsTinymce.js"></script>';
 ?>

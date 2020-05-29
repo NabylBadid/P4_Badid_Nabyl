@@ -4,18 +4,22 @@ namespace App\src\DAO;
 
 use App\config\Parameter;
 use App\src\model\Comment;
+use PDO;
 
 class CommentDAO extends DAO
 {
     private function buildObject($row)
     {
         $comment = new Comment();
-        $comment->setId($row['id']);
-        $comment->setPseudo($row['pseudo']);
-        $comment->setContent($row['content']);
-        $comment->setCreatedAt($row['createdAt']);
-        $comment->setFlag($row['flag']);
-        $comment->setArticleId($row['articleId']);
+        $comment
+            ->setId($row['id'])
+            ->setPseudo($row['pseudo'])
+            ->setContent($row['content'])
+            ->setCreatedAt($row['createdAt'])
+            ->setFlag($row['flag'])
+            ->setArticleId($row['articleId'])
+        ;
+
         return $comment;
     }
 
@@ -24,6 +28,13 @@ class CommentDAO extends DAO
         $sql = 'SELECT id, pseudo, content, flag, DATE_FORMAT(createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, articleId FROM comment WHERE articleId = ? ORDER BY createdAt DESC';
         $result = $this->createQuery($sql, [$articleId]);
         $comments = [];
+
+        // while ($data = $result->fetch(\PDO::FETCH_ASSOC)) {
+        //     $comments[] = new Comment($data);
+        // }
+
+        // return $comments;
+
         foreach ($result as $row) {
             $commentId = $row['id'];
             $comments[$commentId] = $this->buildObject($row);
@@ -45,9 +56,18 @@ class CommentDAO extends DAO
         // $result2->closeCursor();
         // return $comments2;
 
+        // $result = $this->createQuery($sql, [$userId]);
+        // $comments = [];
+        
+        // while ($data = $result->fetch(\PDO::FETCH_ASSOC)) {
+        //     $comments[] = new Comment($data);
+        // }
+        
+        // return $comments;
+        
         // Code tuto
-        $result = $this->createQuery($sql, [$userId]);
         $comments = [];
+        $result = $this->createQuery($sql, [$userId]);
         foreach ($result as $row) {
             $commentId = $row['id'];
             $comments[$commentId] = $this->buildObject($row);
@@ -63,6 +83,9 @@ class CommentDAO extends DAO
         $comment = $result->fetch();
         $result->closeCursor();
         return $this->buildObject($comment);
+        // $comment = new Comment($data);
+        // $result->closeCursor();
+        // return $comment;
     }
 
     public function addComment(Parameter $post, $articleId)
@@ -103,6 +126,13 @@ class CommentDAO extends DAO
         $sql = 'SELECT id, pseudo, content, DATE_FORMAT(createdAt, \'le %d/%m/%Y à %Hh%imin%ss\') AS createdAt, flag, articleId FROM comment WHERE flag = ? ORDER BY createdAt DESC';
         $result = $this->createQuery($sql, [1]);
         $comments = [];
+        
+        // while ($data = $result->fetch(PDO::FETCH_ASSOC)) {
+        //     $comments[] = new Comment($data);
+        // }
+        
+        // return $comments;
+
         foreach ($result as $row) {
             $commentId = $row['id'];
             $comments[$commentId] = $this->buildObject($row);

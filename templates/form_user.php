@@ -3,7 +3,7 @@ $route = $this->title === 'Connexion' ? 'login' : 'register';
 $submit = $route === 'login' ? 'Connexion' : 'Inscription';
 $title = $route === 'login' ? 'Connectez-vous' : 'Inscription';
 $error_login = $this->session->get('error_login');
-$show_error = $this->title === 'Connexion' && !empty($error_login) ? '<div class="alert alert-danger" role="alert">' . $error_login . '</div>': ''; 
+$show_error = $this->title === 'Connexion' && !empty($error_login) ? '<div class="alert alert-danger" role="alert">' . $error_login . '</div>': '';
 ?>
 
 <h1 class="text-center"><?= $title ?></h1>

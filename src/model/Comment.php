@@ -2,6 +2,8 @@
 
 namespace App\src\model;
 
+use DateTime;
+
 class Comment
 {
     /**
@@ -19,13 +21,13 @@ class Comment
      */
     private $content;
 
-        /**
+    /**
      * @var string
      */
     private $articleId;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     private $createdAt;
 
@@ -34,72 +36,73 @@ class Comment
      */
     private $flag;
 
+
+    /**
+     * Constructeur de la classe qui assigne les données spécifiées en paramètre aux attributs correspondants.
+     * @param $valeurs array Les valeurs à assigner
+     * @return void
+     */
+    public function __construct($values = [])
+    {
+        if (!empty($values)) {
+            $this->hydrate($values);
+        }
+    }
+
+    /**
+     * Méthode assignant les valeurs spécifiées aux attributs correspondant.
+     * @param $donnees array Les données à assigner
+     * @return void
+     */
+    public function hydrate($data)
+    {
+        foreach ($data as $attribut => $value) {
+            $method = 'set'.ucfirst($attribut);
+    
+            if (is_callable([$this, $method])) {
+                $this->$method($value);
+            }
+        }
+    }
+
+
+    // GETTERS
+
+
     /**
      * @return int
      */
-    public function getId()
+    public function getId() : ?int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return string
      */
-    public function getPseudo()
+    public function getPseudo() : ?string
     {
         return $this->pseudo;
     }
 
     /**
-     * @param string $pseudo
-     */
-    public function setPseudo($pseudo)
-    {
-        $this->pseudo = $pseudo;
-    }
-
-    /**
      * @return string
      */
-    public function getContent()
+    public function getContent()  : ?string
     {
         return $this->content;
     }
 
     /**
-     * @param string $content
-     */
-    public function setContent($content)
-    {
-        $this->content = $content;
-    }
-
-        /**
      * @return string
      */
-    public function getArticleId()
+    public function getArticleId()  : ?string
     {
         return $this->articleId;
     }
 
     /**
-     * @param string $articleId
-     */
-    public function setArticleId($articleId)
-    {
-        $this->articleId = $articleId;
-    }
-
-    /**
-     * @return \DateTime
+     * @return DateTime
      */
     public function getCreatedAt()
     {
@@ -107,26 +110,74 @@ class Comment
     }
 
     /**
-     * @param \DateTime $createdAt
+     * @return bool
      */
-    public function setCreatedAt($createdAt)
+    public function isFlag() : ?bool
     {
-        $this->createdAt = $createdAt;
+        return $this->flag;
+    }
+
+
+    // SETTERS
+
+
+    /**
+     * @param int $id
+     */
+    public function setId(?int $id) : self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
-     * @return bool
+     * @param string $pseudo
      */
-    public function isFlag()
+    public function setPseudo(?string $pseudo) : self
     {
-        return $this->flag;
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @param string $content
+     */
+    public function setContent(?string $content) : self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * @param string $articleId
+     */
+    public function setArticleId(?string $articleId) : self
+    {
+        $this->articleId = $articleId;
+
+        return $this;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     */
+    public function setCreatedAt($createdAt) : self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     /**
      * @param bool $flag
      */
-    public function setFlag($flag)
+    public function setFlag($flag) : self
     {
         $this->flag = $flag;
+
+        return $this;
     }
 }
