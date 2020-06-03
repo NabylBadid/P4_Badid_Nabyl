@@ -44,6 +44,7 @@ class Session
     
     public function stop()
     {
-        session_destroy();
+        session_destroy(); // Détruit la session (et non les variables) (ne détruit pas les variables globales associées à la session, ni le cookie de session)
+        session_unset(); // Détruit les variables de session, mais la session existe toujours. On peut détruire une seule variable avec unset. Voir la fonction remove juste au dessus
     }
 }

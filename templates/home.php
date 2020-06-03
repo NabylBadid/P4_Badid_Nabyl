@@ -10,6 +10,8 @@
 echo $this->session->show('register');
 echo $this->session->show('login');
 echo $this->session->show('logout');
+echo $this->session->show('error_404');
+echo $this->session->show('error_500');
     ?>
 </div>
 

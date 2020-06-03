@@ -58,7 +58,7 @@ if ($confirmed !== null) {
                     <tr>
                         <th scope="row"><?= htmlspecialchars($comment->getId()); ?></th>
                         <td><?= htmlspecialchars($comment->getPseudo()); ?></td>
-                        <td><?= substr(htmlspecialchars($comment->getContent()), 0, 150); ?></td>
+                        <td><?= substr($comment->getContent(), 0, 150); ?></td>
                         <td><span class="italic">posté le</span> : <?= htmlspecialchars($comment->getCreatedAt()); ?></td>
                         <td>
                             <a href="../public/index.php?route=unflagComment&commentId=<?= $comment->getId(); ?>">Désignaler le commentaire</a><br />

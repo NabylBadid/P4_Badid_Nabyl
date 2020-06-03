@@ -11,7 +11,7 @@ abstract class DAO
 {
     private $connection;
 
-    private function checkConnection()
+    protected function checkConnection()
     {
         //Vérifie si la connexion est nulle et fait appel à getConnection()
         if ($this->connection === null) {

@@ -1,7 +1,7 @@
 <?php $this->title = 'Mon profil'; ?>
 <h1>Profil</h1>
-<?= $this->session->show('update_password'); ?>
 <div class="container profile">
+    <?= $this->session->show('update_password'); ?>
     <h2>Bienvenue <?= $this->session->get('pseudo'); ?></h2><br />
     <h3>Les commentaires que vous avez posté :</h3><br />
     

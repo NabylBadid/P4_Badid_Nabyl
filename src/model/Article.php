@@ -154,7 +154,7 @@ class Article
     /**
      * @param string $pseudo
      */
-    public function setPseudo($pseudo) : self
+    public function setPseudo(?string $pseudo) : self
     {
         $this->pseudo = $pseudo;
 
@@ -164,7 +164,7 @@ class Article
     /**
      * @param string $imgName
      */
-    public function setImgName($imgName) : self
+    public function setImgName(?string $imgName) : self
     {
         $this->imgName = $imgName;
 

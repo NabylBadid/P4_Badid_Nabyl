@@ -19,7 +19,7 @@ class BackController extends Controller
     private function checkAdmin()
     {
         $this->checkLoggedIn();
-        if (!($this->session->get('role') === 'admin')) {
+        if (!($this->session->get('role') === 'administrateur')) {
             $this->session->set('not_admin', 'Vous n\'avez pas le droit d\'accéder à cette page');
             header('Location: ../public/index.php?route=profile');
         } else {
@@ -35,7 +35,7 @@ class BackController extends Controller
         $confirmed = $this->session->get('accesAdmin');
 
         // Déja confirmé ?
-        if ($confirmed) {
+        if ($confirmed !== null) {
             return $this->view->render('administration', [
                 'articles' => $articles,
                 'comments' => $comments,
@@ -100,7 +100,7 @@ class BackController extends Controller
             $post->set('id', $article->getId());
             $post->set('title', $article->getTitle());
             $post->set('content', $article->getContent());
-            $post->set('author', $article->getAuthor());
+            $post->set('author', $article->getPseudo());
             $post->set('imgName', $article->getImgName());
             
 
@@ -161,11 +161,9 @@ class BackController extends Controller
     public function deleteComment($commentId, $articleId)
     {
         $this->commentDAO->getComment($commentId);
-        if ($this->checkAdmin()) {
-            $this->commentDAO->deleteComment($commentId);
-            $this->session->set('delete_comment', 'Le commentaire a bien été supprimé');
-            header('Location: ../public/index.php?route=article&articleId=' . $articleId);
-        }
+        $this->commentDAO->deleteComment($commentId);
+        $this->session->set('delete_comment', 'Le commentaire a bien été supprimé');
+        header('Location: ../public/index.php?route=article&articleId=' . $articleId);
     }
 
     public function profile($userId)
