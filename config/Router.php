@@ -7,13 +7,35 @@ use App\src\controller\ErrorController;
 use App\src\controller\FrontController;
 use Exception;
 
+/**
+ * Classe gérant les routes
+ */
 class Router
 {
+    /**
+     * @var FrontController
+     */
     private $frontController;
+
+    /**
+     * @var BackController
+     */
     private $backController;
+
+    /**
+     * @var ErrorController
+     */
     private $errorController;
+    
+    /**
+     * @var Request
+     */
     private $request;
 
+    /**
+     * Constructeur de la classe qui assigne les données spécifiées en paramètre aux attributs correspondants.
+     * @return void
+     */
     public function __construct()
     {
         $this->request = new Request();
@@ -22,6 +44,10 @@ class Router
         $this->errorController = new ErrorController();
     }
 
+    /**
+     * Méthode contrôlant les routes
+     * @return void
+     */
     public function run()
     {
         $route = $this->request->getGet()->get('route');

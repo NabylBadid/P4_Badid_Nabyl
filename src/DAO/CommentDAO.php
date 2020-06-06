@@ -6,8 +6,16 @@ use App\config\Parameter;
 use App\src\model\Comment;
 use PDO;
 
+/**
+ * Classe gérant les commentaires en bdd
+ */
 class CommentDAO extends DAO
 {
+    /**
+     * Méthode créant un objet à partir des données récupérées
+     * @param string $row ligne correspondant un élément d'une entrée en bdd
+     * @return Comment
+     */
     private function buildObject($row)
     {
         $comment = new Comment();
@@ -23,6 +31,11 @@ class CommentDAO extends DAO
         return $comment;
     }
 
+    /**
+     * Méthode récuperant les commentaires liés à un article
+     * @param int $articleId identifiant de l'article
+     * @return Comment
+     */
     public function getCommentsFromArticle($articleId)
     {
         $sql = 'SELECT id, pseudo, content, flag, DATE_FORMAT(createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, articleId FROM comment WHERE articleId = ? ORDER BY createdAt DESC';        
@@ -43,6 +56,11 @@ class CommentDAO extends DAO
         // $result = $this->createQuery($sql, [$articleId]);
     }
 
+    /**
+     * Méthode renvoyant les commentaires liés à un utilisateur
+     * @param int $userId identifiant de l'utilisateur
+     * @return Comment
+     */
     public function getCommentsFromUser($userId)
     {
         // Jointure avec INNER JOIN (normalisée)
@@ -67,6 +85,11 @@ class CommentDAO extends DAO
         return $comments;
     }
 
+    /**
+     * Méthode récupérant un commentaire
+     * @param int $commentId identifiant du commetaire
+     * @return Comment
+     */
     public function getComment($commentId)
     {
         $sql = 'SELECT * FROM comment WHERE id = ?';
@@ -82,6 +105,12 @@ class CommentDAO extends DAO
         // $result = $this->createQuery($sql, [$commentId]);
     }
 
+    /**
+     * Méthode ajoutant un commentaire
+     * @param Parameter $post données POST envoyées pas l'utilsateur 
+     * @param int $articleId identifiant de l'article
+     * @return void
+     */
     public function addComment(Parameter $post, $articleId)
     {
         $sql = 'INSERT INTO comment (pseudo, content, createdAt, flag, articleId) VALUES (?, ?, NOW(), ?, ?)';
@@ -96,6 +125,12 @@ class CommentDAO extends DAO
         //$this->createQuery($sql, [htmlspecialchars($post->get('pseudo')),$post->get('content'), 0, $articleId]);
     }
 
+    /**
+     * Méthode modifiant un commentaire
+     * @param Parameter $post données POST envoyées pas l'utilsateur
+     * @param int $commentId identifiant du commentaire
+     * @return void
+     */
     public function editComment(Parameter $post, $commentId)
     {
         $sql = 'UPDATE comment SET content=:content WHERE id=:commentId';
@@ -110,6 +145,11 @@ class CommentDAO extends DAO
         //     ]);
     }
 
+    /**
+     * Méthode signalant un commentaire
+     * @param int $commentId identifiant du commentaire
+     * @return void
+     */
     public function flagComment($commentId)
     {
         $sql = 'UPDATE comment SET flag = ? WHERE id = ?';
@@ -122,6 +162,11 @@ class CommentDAO extends DAO
         // $this->createQuery($sql, [1, $commentId]);
     }
     
+    /**
+     * Méthode désignalant un commentaire
+     * @param int $commentId identifiant d'un commentaire
+     * @return void
+     */
     public function unflagComment($commentId)
     {
         $sql = 'UPDATE comment SET flag = ? WHERE id = ?';
@@ -134,6 +179,11 @@ class CommentDAO extends DAO
         // $this->createQuery($sql, [0, $commentId]);
     }
 
+    /**
+     * Méthode supprimant un commentaire
+     * @param int $commentId identifiant du commentaire
+     * @return void
+     */
     public function deleteComment($commentId)
     {
         $sql = 'DELETE FROM comment WHERE id = ?';
@@ -145,6 +195,10 @@ class CommentDAO extends DAO
         // $this->createQuery($sql, [$commentId]);
     }
 
+    /**
+     * Méthode récupérant les commentaires signalés
+     * @return Comment
+     */
     public function getFlagComments()
     {
         $sql = 'SELECT id, pseudo, content, DATE_FORMAT(createdAt, \'le %d/%m/%Y à %Hh%imin%ss\') AS createdAt, flag, articleId FROM comment WHERE flag = ? ORDER BY createdAt DESC';

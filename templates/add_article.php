@@ -8,3 +8,4 @@
     <?php include('form_article.php');?>
     <a class="link" href="../public/index.php?route=administration"><< Retour à l'espace d'administration</a>
 </div>
+

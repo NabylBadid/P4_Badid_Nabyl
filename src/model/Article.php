@@ -4,6 +4,9 @@ namespace App\src\model;
 
 use DateTime;
 
+/**
+ * Classe gérant l'entité article
+ */
 class Article
 {
     /**
@@ -36,7 +39,6 @@ class Article
      */
     private $createdAt;
 
-
     /**
      * Constructeur de la classe qui assigne les données spécifiées en paramètre aux attributs correspondants.
      * @param $valeurs array Les valeurs à assigner
@@ -65,9 +67,7 @@ class Article
         }
     }
 
-
     // GETTERS
-
 
     /**
      * @return int
@@ -117,10 +117,8 @@ class Article
         return $this->createdAt;
     }
 
-
     // SETTERS
 
-    
     /**
      * @param int $id
      */

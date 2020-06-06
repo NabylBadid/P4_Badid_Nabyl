@@ -7,10 +7,21 @@ namespace App\src\DAO;
 use PDO;
 use Exception;
 
+/** 
+ * Classe gérant la connection à la bdd et l'envoie des requêtes
+ */
 abstract class DAO
 {
+    /**
+     * Connection à la bss
+     * @var 
+     */
     private $connection;
 
+    /**
+     * Méthode vérifiant la connection à la bdd
+     * @return void
+     */
     protected function checkConnection()
     {
         //Vérifie si la connexion est nulle et fait appel à getConnection()
@@ -21,7 +32,10 @@ abstract class DAO
         return $this->connection;
     }
 
-    //Méthode de connexion à notre base de données
+    /**
+     * Méthode de connexion à notre base de données
+     * @return void
+     */
     private function getConnection()
     {
         //Tentative de connexion à la base de données
@@ -37,6 +51,12 @@ abstract class DAO
         }
     }
 
+    /**
+     * Méthode créant une requête SQL 
+     * @param string $sql requête SQL
+     * @param  $parameters paramètres de la requête
+     * @return void
+     */
     protected function createQuery($sql, $parameters = null)
     {
         if ($parameters) {

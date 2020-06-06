@@ -4,16 +4,29 @@ namespace App\src\controller;
 
 use App\config\Parameter;
 
+/**
+ * Classe gérant les traitement front 
+ */
 class FrontController extends Controller
 {
+    /**
+     * Méthode renvoyant à la page d'acceuil
+     * @return void
+     */
     public function home()
     {
         $articles = $this->articleDAO->getArticles();
+        
         return $this->view->render('home', [
            'articles' => $articles
         ]);
     }
 
+    /**
+     * Méthode renvoyant un article
+     * @param int $articleId
+     * @return void
+     */
     public function article($articleId)
     {
         $article = $this->articleDAO->getArticle($articleId);
@@ -25,10 +38,16 @@ class FrontController extends Controller
         ]);
     }
 
+    /**
+     * Méthode permettant l'ajout d'un commentaire
+     * @param Parameter $post
+     * @param int $articleId
+     * @return void
+     */
     public function addComment(Parameter $post, $articleId)
     {
         if ($post->get('submit')) {
-            $errors = $this->validation->validate($post, 'Comment');
+            $errors = $this->validation->validateComment($post);
             if (!$errors) {
                 $this->commentDAO->addComment($post, $articleId);
                 $this->session->set('add_comment', 'Le nouveau commentaire a bien été ajouté !');
@@ -46,6 +65,12 @@ class FrontController extends Controller
         }
     }
 
+    /**
+     * Méthode permmettant de signaler un commentaire
+     * @param int $commentId
+     * @param int $articleId
+     * @return void
+     */
     public function flagComment($commentId, $articleId)
     {
         $this->commentDAO->flagComment($commentId);
@@ -53,10 +78,15 @@ class FrontController extends Controller
         header('Location: ../public/index.php?route=article&articleId=' . $articleId);
     }
 
+    /**
+     * Méthode permettant se s'inscrire
+     * @param Parameter $post données envoyées en POST par l'utilisateur
+     * @return void
+     */
     public function register(Parameter $post)
     {
         if ($post->get('submit')) {
-            $errors = $this->validation->validate($post, 'User');
+            $errors = $this->validation->validateUser($post);
             if ($this->userDAO->checkUser($post)) {
                 $errors['pseudo'] = $this->userDAO->checkUser($post);
             }
@@ -65,26 +95,25 @@ class FrontController extends Controller
                 $this->session->set('register', 'Votre inscription a bien été effectuée !');
                 header('Location: ../public/index.php');
             }
+            
             return $this->view->render('register', [
                 'post' => $post,
                 'errors' => $errors
             ]);
         }
+        
         return $this->view->render('register');
     }
 
+    /**
+     * Méthode permettant de se connecter
+     * @param Parameter $post données envoyées en POST par l'utilisateur
+     * @return void
+     */
     public function login(Parameter $post)
     {
         if ($post->get('submit')) {
             $result = $this->userDAO->login($post);
-            // $isPasswordValid = password_verify($post->get('password'), $user->getPassword());
-            // if ($user && $isPasswordValid) {
-            //     $this->session->set('login', 'Content de vous revoir !');
-            //     $this->session->set('id', $user->getId());
-            //     $this->session->set('role', $user->getRole());
-            //     $this->session->set('pseudo', $post->get('pseudo'));
-            //     header('Location: ../public/index.php');
-            // }
             if($result && $result['isPasswordValid']) {
                 $this->session->set('login', 'Content de vous revoir !');
                 $this->session->set('id', $result['result']['id']);
@@ -93,12 +122,14 @@ class FrontController extends Controller
             header('Location: ../public/index.php');
             }
             else {
-                $this->session->set('error_login', 'Le pseudo ou le mot de passe sont incorrects');
+                $this->session->set('error_login', 'Le pseudo et/ou le mot de passe sont incorrects');
+                
                 return $this->view->render('login', [
                     'post'=> $post
                 ]);
             }
         }
+        
         return $this->view->render('login');
     }
 }

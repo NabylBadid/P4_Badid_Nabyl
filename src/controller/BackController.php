@@ -4,8 +4,15 @@ namespace App\src\controller;
 
 use App\config\Parameter;
 
+/**
+ * Classe gérant les traitemens back 
+ */
 class BackController extends Controller
 {
+    /**
+     * Méthode vérifiant si le visiteur est connecté
+     * @return void
+     */
     private function checkLoggedIn()
     {
         if (!$this->session->get('pseudo')) {
@@ -16,6 +23,10 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * Méthode vérifiant si le visiteur est un administrateur
+     * @return void
+     */
     private function checkAdmin()
     {
         $this->checkLoggedIn();
@@ -27,6 +38,11 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * Méthode contrôlant l'accès à l'administration
+     * @param Parameter $post
+     * @return void
+     */
     public function administration(Parameter $post)
     {
         $articles = $this->articleDAO->getArticles();
@@ -62,11 +78,16 @@ class BackController extends Controller
         return $this->view->render('administration');
     }
 
+    /**
+     * Méthode permettant d'ajouter un article
+     * @param Parameter $post données POST envoyées par l'utilisateur
+     * @return void
+     */
     public function addArticle(Parameter $post)
     {
         if ($this->checkAdmin()) {
             if ($post->get('submit')) {
-                $errors = $this->validation->validate($post, 'Article');
+                $errors = $this->validation->validateArticle($post);
                 if (!$errors) {
                     $this->articleDAO->addArticle($post, $this->session->get('id'));
                     $this->session->set('add_article', 'Le nouvel article a bien été ajouté !');
@@ -81,12 +102,18 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * Méthode permettant de modifier un article
+     * @param Parameter $post données POST envoyées par l'utilisateur
+     * @param int $articleId identifiant de l'article en bdd
+     * @return void
+     */
     public function editArticle(Parameter $post, $articleId)
     {
         if ($this->checkAdmin()) {
             $article = $this->articleDAO->getArticle($articleId);
             if ($post->get('submit')) {
-                $errors = $this->validation->validate($post, 'Article');
+                $errors = $this->validation->validateArticle($post);
                 if (!$errors) {
                     $this->articleDAO->editArticle($post, $articleId, $this->session->get('id'));
                     $this->session->set('edit_article', 'L\' article a bien été modifié');
@@ -110,6 +137,11 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * Méthode permettant de supprimer un article
+     * @param int $articleId identifiant de l'article en bdd
+     * @return void
+     */
     public function deleteArticle($articleId)
     {
         if ($this->checkAdmin()) {
@@ -119,13 +151,20 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * Méthode permettant de modifier un commentaire
+     * @param Parameter $post données POST envoyées par l'utilisateur
+     * @param int $commentId identifiant du commentaire en bdd
+     * @param int $articleId identifiant de l'article en bdd
+     * @return void
+     */
     public function editComment(Parameter $post, $commentId, $articleId)
     {
         $article = $this->articleDAO->getArticle($articleId);
         $comments = $this->commentDAO->getCommentsFromArticle($articleId);
         $comment = $this->commentDAO->getComment($commentId);
         if ($post->get('submit')) {
-            $errors = $this->validation->validate($post, 'Comment');
+            $errors = $this->validation->validateComment($post);
             if (!$errors) {
                 $this->commentDAO->editComment($post, $commentId);
                 $this->session->set('edit_comment', 'Le commentaire a bien été modifié');
@@ -149,6 +188,11 @@ class BackController extends Controller
         ]);
     }
 
+    /**
+     * Méthode permettant de désignaler un commentaire
+     * @param int $commentId identifiant du commentaire en bdd
+     * @return void
+     */
     public function unflagComment($commentId)
     {
         if ($this->checkAdmin()) {
@@ -158,6 +202,12 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * Méthode permettant de supprimer un commentaire
+     * @param int $commentId identifiant du commentaire en bdd
+     * @param int $articleId identifiant de l'article en bdd
+     * @return void
+     */
     public function deleteComment($commentId, $articleId)
     {
         $this->commentDAO->getComment($commentId);
@@ -166,6 +216,11 @@ class BackController extends Controller
         header('Location: ../public/index.php?route=article&articleId=' . $articleId);
     }
 
+    /**
+     * Méthode renvoyant la page de profil de l'utilisateur
+     * @param int $userId identifiant de l'utilisateur en bdd
+     * @return void
+     */
     public function profile($userId)
     {
         $comments = $this->commentDAO->getCommentsFromUser($userId);
@@ -177,6 +232,11 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * Méthode permettant de modifier son mot de passe
+     * @param Parameter $post données POST envoyées par l'utilisateur
+     * @return void
+     */
     public function updatePassword(Parameter $post)
     {
         if ($this->checkLoggedIn()) {
@@ -189,6 +249,10 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * Méthode permettant de se déconnecter
+     * @return void
+     */
     public function logout()
     {
         if ($this->checkLoggedIn()) {
@@ -196,6 +260,10 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * Méthode permettant de supprimer son compte
+     * @return void
+     */
     public function deleteAccount()
     {
         if ($this->checkLoggedIn()) {
@@ -204,6 +272,11 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * Méthode permettant de supprimer un utilisateur
+     * @param int $userId idientifiant de l'utilisateur en bdd
+     * @return void
+     */
     public function deleteUser($userId)
     {
         if ($this->checkAdmin()) {
@@ -213,6 +286,11 @@ class BackController extends Controller
         }
     }
 
+    /**
+     * Méthode gérant la session lorsque l'utilisateur se déconnecte ou supprime son compte (méthode appelée dans $this->logout et $this->delete)
+     * @param string $param 'logout' pour se déconncter et 'delete_account' pour supprimer son compte
+     * @return void
+     */
     private function logoutOrDelete($param)
     {
         $this->session->stop();

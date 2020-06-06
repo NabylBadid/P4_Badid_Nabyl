@@ -4,6 +4,9 @@ namespace App\src\model;
 
 use DateTime;
 
+/**
+ * Classe gérant l'entité utilisateur
+ */
 class User
 {
     /**
@@ -30,7 +33,6 @@ class User
      * @var string
      */
     private $role;
-
 
     /**
      * Constructeur de la classe qui assigne les données spécifiées en paramètre aux attributs correspondants.
@@ -59,7 +61,6 @@ class User
             }
         }
     }
-
 
     // GETTERS
 
@@ -102,10 +103,8 @@ class User
     {
         return $this->role;
     }
-
     
     // SETTERS
-
     
     /**
      * @param int $id

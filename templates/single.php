@@ -4,7 +4,7 @@
     <img src="../public/img/<?= htmlspecialchars($article->getImgName());?>" class="img-thumbnail rounded mx-auto d-block"><br />
     <h2 class="text-center"><em><?= htmlspecialchars($article->getTitle());?></em></h2><br />
     <p class="info"> <i class="far fa-clock"></i> <span class="italic">posté le</span> : <?= htmlspecialchars($article->getCreatedAt());?></p>
-    <p><?= ($article->getContent());?></p>
+    <p><?= $article->getContent();?></p>
     <br>
     <?php
     $sessionPseudo = $this->session->get('pseudo');

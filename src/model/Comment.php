@@ -4,6 +4,9 @@ namespace App\src\model;
 
 use DateTime;
 
+/**
+ * Classe gérant l'entité commentaire
+ */
 class Comment
 {
     /**
@@ -65,9 +68,7 @@ class Comment
         }
     }
 
-
     // GETTERS
-
 
     /**
      * @return int
@@ -117,9 +118,7 @@ class Comment
         return $this->flag;
     }
 
-
     // SETTERS
-
 
     /**
      * @param int $id
