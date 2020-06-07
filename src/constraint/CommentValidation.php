@@ -32,7 +32,7 @@ class CommentValidation extends Validation
     /**
      * Méthode vérifiant tous les champs du formulaire
      * @param Parameter $post données POST envoyées par l'utilisateur
-     * @return void
+     * @return array
      */
     public function check(Parameter $post)
     {
@@ -84,10 +84,11 @@ class CommentValidation extends Validation
     private function checkPseudo($name, $value)
     {
         $value = $this->constraint->sanitizeString($value);
+        $name = $this->constraint->getMethodName(__CLASS__, __METHOD__);
 
         return array (
-            $this->addError('pseudo', $this->constraint->minLength('pseudo', $value, 2)),
-            $this->addError('pseudo', $this->constraint->maxLength('pseudo', $value, 100))
+            $this->addError($name, $this->constraint->minLength($name, $value, 2)),
+            $this->addError($name, $this->constraint->maxLength($name, $value, 100))
         );
 
 
@@ -111,11 +112,11 @@ class CommentValidation extends Validation
     private function checkContent($name, $value)
     {
         $value = $this->constraint->sanitizeString($value);
+        $name = $this->constraint->getMethodName(__CLASS__, __METHOD__);
 
         return array (
-            $this->addError('content', $this->constraint->minLength('content', $value, 2)),
+            $this->addError($name, $this->constraint->minLength($name, $value, 2)),
         );
-
 
         // if ($this->constraint->notBlank($name, $value)) {
         //     return $this->constraint->notBlank('contenu', $value);

@@ -19,10 +19,11 @@ class Constraint
      * @param string $name nom du champ
      * @param string $value saisie utilsateur
      * @param int $minSize taille minimale
-     * @return void
+     * @return string
      */
     public function minLength($name, $value, $minSize)
     {
+        $name = str_replace(['title', 'content', 'imgName', 'password'], ['"titre"', '"contenu"', '"nom de l\'image"', '"mot de passe"'], $name);
         if (strlen($value) < $minSize) {
             return '<p>Le champ '.$name.' doit contenir au moins '.$minSize.' caractères</p>';
         }
@@ -33,7 +34,7 @@ class Constraint
      * @param string $name nom du champ
      * @param string $value saisie utilisateur
      * @param int $minSize taille maximale
-     * @return void
+     * @return string
      */
     public function maxLength($name, $value, $maxSize)
     {
@@ -45,7 +46,7 @@ class Constraint
     /**
      * Méthode désinfectant une valeur
      * @param string $value saisie utilisateur
-     * @return void
+     * @return string
      */
     public function sanitizeString($value)
     {
@@ -55,10 +56,21 @@ class Constraint
     /**
      * Méthode validant un entier
      * @param int $value saisie utilisateur
-     * @return void
+     * @return int
      */
     public function validInt($value)
     {
         return filter_var($value, FILTER_VALIDATE_INT);
+    }
+
+    /**
+     * Méthode renvoyant dynamiquement le nom d'une méthode
+     * @param string $name variable magique __METHOD__
+     * @return string
+     */
+    public function getMethodName($className, $name) 
+    {
+        $methodName = str_replace($className . "::check", "", $name);
+        return lcfirst($methodName);
     }
 }

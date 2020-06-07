@@ -32,7 +32,7 @@ class UserValidation extends Validation
     /**
      * Méthode vérifiant tous les champs du formulaire
      * @param Parameter $post données POST envoyées par l'utilisateur
-     * @return void
+     * @return array
      */
     public function check(Parameter $post)
     {
@@ -64,7 +64,7 @@ class UserValidation extends Validation
      * Méthode ajoutant les erreurs de saisies
      * @param string $name nom du champ
      * @param string $error message d'erreur renvoyé
-     * @return void
+     * @return array
      */
     private function addError($name, $error)
     {
@@ -79,15 +79,16 @@ class UserValidation extends Validation
      * Méthode vériiant le pseudo du l'utilisateur
      * @param string $name nom du champ
      * @param string $value saisie utilisateur
-     * @return void
+     * @return array
      */
     private function checkPseudo($name, $value)
     {
         $value = $this->constraint->sanitizeString($value);
+        $name = $this->constraint->getMethodName(__CLASS__, __METHOD__);
 
         return array (
-            $this->addError('pseudo', $this->constraint->minLength('pseudo', $value, 2)),
-            $this->addError('pseudo', $this->constraint->maxLength('pseudo', $value, 255))
+            $this->addError($name, $this->constraint->minLength($name, $value, 2)),
+            $this->addError($name, $this->constraint->maxLength($name, $value, 255))
         );
 
         // $errors = [];
@@ -125,15 +126,16 @@ class UserValidation extends Validation
      * Méthode vériiant le mot de passe de l'utilisateur
      * @param string $name nom du champ
      * @param string $value saisie utilisateur
-     * @return void
+     * @return array
      */
     private function checkPassword($name, $value)
     {
         $value = $this->constraint->sanitizeString($value);
+        $name = $this->constraint->getMethodName(__CLASS__, __METHOD__);
 
         return array (
-            $this->addError('password', $this->constraint->minLength('pseudo', $value, 2)),
-            $this->addError('password', $this->constraint->maxLength('pseudo', $value, 255))
+            $this->addError($name, $this->constraint->minLength($name, $value, 2)),
+            $this->addError($name, $this->constraint->maxLength($name, $value, 255))
         );
 
         // $errors = [];

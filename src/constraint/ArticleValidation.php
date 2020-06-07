@@ -32,7 +32,7 @@ class ArticleValidation extends Validation
     /**
      * Méthode vérifiant tous les champs du formulaire
      * @param Parameter $post données POST envoyées par l'utilisateur
-     * @return void
+     * @return array
      */
     public function check(Parameter $post)
     {
@@ -65,8 +65,8 @@ class ArticleValidation extends Validation
     /**
      * Méthode ajoutant les erreurs de saisies
      * @param string $name nom du champ
-     * @param string $error message d'erreur renvoyé 
-     * @return void
+     * @param string $error message d'erreur renvoyé
+     * @return array
      */
     private function addError($name, $error)
     {
@@ -81,15 +81,16 @@ class ArticleValidation extends Validation
      * Méthode vériiant le titre de l'article
      * @param string $name nom du champ
      * @param string $value saisie utilisateur
-     * @return void
+     * @return array
      */
     private function checkTitle($name, $value)
     {
         $value = $this->constraint->sanitizeString($value);
-
+        $name = $this->constraint->getMethodName(__CLASS__, __METHOD__);
+        
         return array (
-            $this->addError('title', $this->constraint->minLength('title', $value, 2)),
-            $this->addError('title', $this->constraint->maxLength('title', $value, 255))
+            $this->addError($name, $this->constraint->minLength($name, $value, 2)),
+            $this->addError($name, $this->constraint->maxLength($name, $value, 255))
         );
 
         // if ($this->constraint->notBlank($name, $value)) {
@@ -107,14 +108,15 @@ class ArticleValidation extends Validation
      * Méthode vériiant le contenu de l'article
      * @param string $name nom du champ
      * @param string $value saisie utilisateur
-     * @return void
+     * @return array
      */
     private function checkContent($name, $value)
     {
         $value = $this->constraint->sanitizeString($value);
+        $name = $this->constraint->getMethodName(__CLASS__,__METHOD__);
 
         return array (
-            $this->addError('content', $this->constraint->minLength('content', $value, 2))
+            $this->addError($name, $this->constraint->minLength($name, $value, 2))
         );
 
         // if ($this->constraint->notBlank($name, $value)) {
@@ -129,15 +131,16 @@ class ArticleValidation extends Validation
      * Méthode vériiant le nom de l'image de l'article
      * @param string $name nom du champ
      * @param string $value saisie utilisateur
-     * @return void
+     * @return array
      */
     private function checkImgName($name, $value)
     {
         $value = $this->constraint->sanitizeString($value);
+        $name = $this->constraint->getMethodName(__CLASS__, __METHOD__);
 
         return array (
-            $this->addError('imgName', $this->constraint->minLength('imgName', $value, 3)),
-            $this->addError('imgName', $this->constraint->maxLength('imgName', $value, 100))
+            $this->addError($name, $this->constraint->minLength($name, $value, 3)),
+            $this->addError($name, $this->constraint->maxLength($name, $value, 100))
         );
 
         // if ($this->constraint->notBlank($name, $value)) {
