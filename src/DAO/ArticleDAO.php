@@ -4,6 +4,7 @@ namespace App\src\DAO;
 
 use App\config\Parameter;
 use App\src\model\Article;
+use App\src\DAO\CommentDAO;
 use PDO;
 
 /**
@@ -11,6 +12,22 @@ use PDO;
  */
 class ArticleDAO extends DAO
 {
+    /**
+     * Objet permettant le gestion des commentaires en bdd
+     * @var CommentDAO
+     */
+    private $commentDAO;
+
+    /**
+     * Constructeur de la classe qui assigne les données spécifiées en paramètre aux attributs correspondants.
+     * @param $valeurs array Les valeurs à assigner
+     * @return void
+     */
+    public function __construct() 
+    {
+        $this->commentDAO = new CommentDAO;
+    }
+
     /**
      * Méthode créant un objet à partir des données récupérer en bdd
      * @param string $row ligne correspondant un élément d'une entrée en bdd
@@ -26,6 +43,7 @@ class ArticleDAO extends DAO
             ->setPseudo($row['pseudo'])
             ->setCreatedAt($row['createdAt'])
             ->setImgName($row['imgName'])
+            ->setComments($this->commentDAO->getCommentsFromArticle($row['id']))
         ;
         
         return $article;

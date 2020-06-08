@@ -2,10 +2,12 @@
 <h1>Profil</h1>
 <div class="container profile">
     <?= $this->session->show('update_password'); ?>
-    <h2>Bienvenue <?= $this->session->get('pseudo'); ?></h2><br />
+    <h2>Bienvenue <?= $user->getPseudo(); ?></h2><br />
     <h3>Les commentaires que vous avez posté :</h3><br />
-    
+    <!-- $this->session->get('pseudo') -->
 <?php
+    var_dump($user);
+    $comments = $user->getComments();
     foreach ($comments as $comment) {
         ?>
         <div class="list-group">

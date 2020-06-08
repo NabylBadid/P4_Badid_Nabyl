@@ -58,10 +58,10 @@ class CommentDAO extends DAO
 
     /**
      * Méthode renvoyant les commentaires liés à un utilisateur
-     * @param int $userId identifiant de l'utilisateur
+     * @param string $pseudoUser nom de l'utilisateur
      * @return Comment
      */
-    public function getCommentsFromUser($userId)
+    public function getCommentsFromUser($pseudoUser)
     {
         // Jointure avec INNER JOIN (normalisée)
         $sql = 'SELECT comment.id, comment.pseudo, comment.content, comment.flag, DATE_FORMAT(comment.createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, comment.articleId, article.title FROM comment INNER JOIN article ON comment.articleId = article.id AND comment.pseudo = ? ORDER BY createdAt DESC';
@@ -72,7 +72,7 @@ class CommentDAO extends DAO
         // $result = $this->createQuery($sql, [$userId]);
 
         $result = $this->checkConnection()->prepare($sql);
-        $result->bindValue(1, $userId , PDO::PARAM_STR);
+        $result->bindValue(1, $pseudoUser , PDO::PARAM_STR);
         $result->execute();
 
         $comments = [];

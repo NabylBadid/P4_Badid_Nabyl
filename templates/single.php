@@ -17,6 +17,7 @@
     <br /> <h3>Commentaires</h3><br />
 
     <?php
+    $comments = $article->getComments();
     foreach ($comments as $comment) {
         ?>
         <div class="list-group">
@@ -59,3 +60,7 @@
     <?php
     } ?>
 </div>
+
+<h1>rrr</h1>
+
+<?php var_dump($article); ?>
