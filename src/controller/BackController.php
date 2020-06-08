@@ -161,7 +161,7 @@ class BackController extends Controller
     public function editComment(Parameter $post, $commentId, $articleId)
     {
         $article = $this->articleDAO->getArticle($articleId);
-        $comments = $this->commentDAO->getCommentsFromArticle($articleId);
+        // $comments = $this->commentDAO->getCommentsFromArticle($articleId);
         $comment = $this->commentDAO->getComment($commentId);
         if ($post->get('submit')) {
             $errors = $this->validation->validateComment($post);
@@ -223,11 +223,13 @@ class BackController extends Controller
      */
     public function profile($userId)
     {
-        $comments = $this->commentDAO->getCommentsFromUser($userId);
+        $user = $this->userDAO->getUser($userId);
+        // $comments = $this->commentDAO->getCommentsFromUser($user->getPseudo());
         if ($this->checkLoggedIn()) {
             return $this->view->render('profile', [
-                'comments' => $comments,
-                'userId' => $userId
+                'user' => $user,
+                'userId' => $userId,
+                // 'comments' => $comments
             ]);
         }
     }

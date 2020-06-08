@@ -4,6 +4,7 @@ namespace App\src\DAO;
 
 use App\config\Parameter;
 use App\src\model\User;
+use App\src\DAO\CommentDAO;
 use PDO;
 
 /**
@@ -11,6 +12,22 @@ use PDO;
  */
 class UserDAO extends DAO
 {
+    /**
+     * Objet permettant le gestion des commentaires en bdd
+     * @var CommentDAO
+     */
+    private $commentDAO;
+
+    /**
+     * Constructeur de la classe qui assigne les données spécifiées en paramètre aux attributs correspondants.
+     * @param $valeurs array Les valeurs à assigner
+     * @return void
+     */
+    public function __construct() 
+    {
+        $this->commentDAO = new CommentDAO;
+    }
+
     /**
      * Méthode créant un objet à partir des données récupérées
      * @param string $row ligne correspondant un élément d'une entrée en bdd
@@ -24,6 +41,7 @@ class UserDAO extends DAO
             ->setPseudo($row['pseudo'])
             ->setCreatedAt($row['createdAt'])
             ->setRole($row['role'])
+            ->setComments($this->commentDAO->getCommentsFromUser($row['pseudo']))
         ;
 
         return $user;
@@ -45,6 +63,23 @@ class UserDAO extends DAO
         }
         $result->closeCursor();
         return $users;
+    }
+
+    /**
+     * Méthode récupérant un utilisateur
+     * @param int $userId
+     * @return User
+     */
+    public function getUser($userId)
+    {
+        $sql = 'SELECT id, pseudo, DATE_FORMAT(createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, role FROM user WHERE id =:userId';
+        $result = $this->checkConnection()->prepare($sql);
+        $result->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $result->execute();
+        $user = $result->fetch();
+        $result->closeCursor();
+
+        return $this->buildObject($user);
     }
 
     /**

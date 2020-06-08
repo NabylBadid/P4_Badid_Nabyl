@@ -40,6 +40,11 @@ class Article
     private $createdAt;
 
     /**
+     * @var Comment
+     */
+    private $comments;
+
+    /**
      * Constructeur de la classe qui assigne les données spécifiées en paramètre aux attributs correspondants.
      * @param $valeurs array Les valeurs à assigner
      * @return void
@@ -117,10 +122,19 @@ class Article
         return $this->createdAt;
     }
 
+    /**
+     * @return Comment
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
     // SETTERS
 
     /**
      * @param int $id
+     * @return self
      */
     public function setId(?int $id) : self // = prend en parametre soit un int soit un null et se renvoi lui-même
     {
@@ -131,6 +145,7 @@ class Article
 
     /**
      * @param string $title
+     * @return self
      */
     public function setTitle(?string $title) : self
     {
@@ -141,6 +156,7 @@ class Article
 
     /**
      * @param string $content
+     * @return self
      */
     public function setContent(?string $content) : self
     {
@@ -151,6 +167,7 @@ class Article
 
     /**
      * @param string $pseudo
+     * @return self
      */
     public function setPseudo(?string $pseudo) : self
     {
@@ -161,6 +178,7 @@ class Article
 
     /**
      * @param string $imgName
+     * @return self
      */
     public function setImgName(?string $imgName) : self
     {
@@ -171,6 +189,7 @@ class Article
 
     /**
      * @param DateTime $createdAt
+     * @return self
      */
     public function setCreatedAt($createdAt) : self
     {
@@ -178,4 +197,16 @@ class Article
 
         return $this;
     }
+
+    /**
+     * @param CommentDAO $comments
+     * @return self
+     */
+    public function setComments($comments) : self
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
 }

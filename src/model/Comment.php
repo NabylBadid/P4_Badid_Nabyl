@@ -122,6 +122,7 @@ class Comment
 
     /**
      * @param int $id
+     * @return self
      */
     public function setId(?int $id) : self
     {
@@ -132,6 +133,7 @@ class Comment
 
     /**
      * @param string $pseudo
+     * @return self
      */
     public function setPseudo(?string $pseudo) : self
     {
@@ -142,6 +144,7 @@ class Comment
 
     /**
      * @param string $content
+     * @return self
      */
     public function setContent(?string $content) : self
     {
@@ -152,6 +155,7 @@ class Comment
 
     /**
      * @param string $articleId
+     * @return self
      */
     public function setArticleId(?string $articleId) : self
     {
@@ -162,6 +166,7 @@ class Comment
 
     /**
      * @param DateTime $createdAt
+     * @return self
      */
     public function setCreatedAt($createdAt) : self
     {
@@ -172,6 +177,7 @@ class Comment
 
     /**
      * @param bool $flag
+     * @return self
      */
     public function setFlag($flag) : self
     {

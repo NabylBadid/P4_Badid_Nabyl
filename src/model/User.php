@@ -35,6 +35,11 @@ class User
     private $role;
 
     /**
+     * @var Comment
+     */
+    private $comments;
+
+    /**
      * Constructeur de la classe qui assigne les données spécifiées en paramètre aux attributs correspondants.
      * @param $valeurs array Les valeurs à assigner
      * @return void
@@ -103,11 +108,20 @@ class User
     {
         return $this->role;
     }
+
+    /**
+     * @return Comment
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
     
     // SETTERS
     
     /**
      * @param int $id
+     * @return self
      */
     public function setId(?int $id) : self
     {
@@ -118,6 +132,7 @@ class User
 
     /**
      * @param string $pseudo
+     * @return self
      */
     public function setPseudo(?string $pseudo)  : self
     {
@@ -128,6 +143,7 @@ class User
 
     /**
      * @param DateTime $createdAt
+     * @return self
      */
     public function setCreatedAt($createdAt)  : self
     {
@@ -138,6 +154,7 @@ class User
 
     /**
      * @param string $password
+     * @return self
      */
     public function setPassword(?string $password)  : self
     {
@@ -148,10 +165,22 @@ class User
 
     /**
      * @param string $role
+     * @return self
      */
     public function setRole($role)  : self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @param CommentDAO $comments
+     * @return self
+     */
+    public function setComments($comments) : self
+    {
+        $this->comments = $comments;
 
         return $this;
     }

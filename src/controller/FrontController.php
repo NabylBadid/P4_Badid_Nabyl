@@ -30,11 +30,9 @@ class FrontController extends Controller
     public function article($articleId)
     {
         $article = $this->articleDAO->getArticle($articleId);
-        $comments = $this->commentDAO->getCommentsFromArticle($articleId); // A passer dans le ArticleDAO
 
         return $this->view->render('single', [
             'article' => $article,
-            'comments' => $comments
         ]);
     }
 
@@ -54,11 +52,9 @@ class FrontController extends Controller
                 header('Location: ../public/index.php?route=article&articleId=' . $articleId);
             }
             $article = $this->articleDAO->getArticle($articleId);
-            $comments = $this->commentDAO->getCommentsFromArticle($articleId);
 
             return $this->view->render('single', [
                 'article' => $article,
-                'comments' => $comments,
                 'post' => $post,
                 'errors' => $errors
             ]);

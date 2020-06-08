@@ -12,7 +12,7 @@ $this->script =
 <div class="form-group">
     <?= $title; ?>
     <form method="post" action="../public/index.php?route=<?= $route; ?>&articleId=<?= htmlspecialchars($article->getId()); ?>">
-        <input type="hidden" class="form-control" id="pseudo" name="pseudo" value="<?= $pseudo; ?>"><br>
+        <input type="hidden" class="form-control" id="pseudo" name="pseudo" value="<?= $pseudo; ?>" required="required"><br>
         <label for="content">Message</label><br>
         <textarea id="content" class="form-control" name="content"><?= isset($post) ? htmlspecialchars($post->get('content')): ''; ?></textarea><br>
         <?= isset($errors['content']) ? '<div class="alert alert-danger" role="alert">' . $errors['content'] . '</div>': ''; ?>  
