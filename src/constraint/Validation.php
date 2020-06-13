@@ -1,6 +1,6 @@
 <?php
 
-namespace App\src\constraint;
+namespace App\Constraint;
 
 /**
  * Classe validant les différentes entités (article, commentaire et utlisateur), appele les classes gérant les valations

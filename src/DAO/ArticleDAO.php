@@ -1,10 +1,10 @@
 <?php
 
-namespace App\src\DAO;
+namespace App\DAO;
 
-use App\config\Parameter;
-use App\src\model\Article;
-use App\src\DAO\CommentDAO;
+use App\Config\Parameter;
+use App\Model\Article;
+use App\DAO\CommentDAO;
 use PDO;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\config;
+namespace App\Config;
 
 /**
  * Classe gérant les paramètres envoyés ($_GET, $_POST)
@@ -29,7 +29,8 @@ class Parameter
     */
     public function get($name)
     {
-        if (isset($this->parameter[$name])) {
+        if (isset($this->parameter[$name])) { 
+
             return $this->parameter[$name];
         }
     }

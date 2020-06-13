@@ -1,6 +1,6 @@
 <?php
 
-namespace App\src\constraint;
+namespace App\Constraint;
 
 /**
  * Classe gérant les contraintes de validation pours les articles, commentaires et identifiants de l'utilisateur
@@ -25,6 +25,7 @@ class Constraint
     {
         $name = str_replace(['title', 'content', 'imgName', 'password'], ['"titre"', '"contenu"', '"nom de l\'image"', '"mot de passe"'], $name);
         if (strlen($value) < $minSize) {
+           
             return '<p>Le champ '.$name.' doit contenir au moins '.$minSize.' caractères</p>';
         }
     }
@@ -39,6 +40,7 @@ class Constraint
     public function maxLength($name, $value, $maxSize)
     {
         if (strlen($value) > $maxSize) {
+            
             return '<p>Le champ '.$name.' doit contenir au maximum '.$maxSize.' caractères</p>';
         }
     }
@@ -69,8 +71,7 @@ class Constraint
      * @return string
      */
     public function getMethodName($className, $name) 
-    {
-        $methodName = str_replace($className . "::check", "", $name);
-        return lcfirst($methodName);
+    {        
+        return lcfirst(str_replace($className . '::check', '', $name));
     }
 }

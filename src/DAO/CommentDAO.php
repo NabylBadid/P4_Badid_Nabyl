@@ -1,9 +1,9 @@
 <?php
 
-namespace App\src\DAO;
+namespace App\DAO;
 
-use App\config\Parameter;
-use App\src\model\Comment;
+use App\Config\Parameter;
+use App\Model\Comment;
 use PDO;
 
 /**

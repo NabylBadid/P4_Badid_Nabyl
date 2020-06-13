@@ -1,10 +1,10 @@
 <?php
 
-namespace App\src\DAO;
+namespace App\DAO;
 
-use App\config\Parameter;
-use App\src\model\User;
-use App\src\DAO\CommentDAO;
+use App\Config\Parameter;
+use App\Model\User;
+use App\DAO\CommentDAO;
 use PDO;
 
 /**
@@ -62,6 +62,7 @@ class UserDAO extends DAO
             $users[$userId] = $this->buildObject($row);
         }
         $result->closeCursor();
+        
         return $users;
     }
 
@@ -115,6 +116,7 @@ class UserDAO extends DAO
 
         $isUnique = $result->fetchColumn();
         if ($isUnique) {
+            
             return '<p>Le pseudo existe déjà</p>';
         }
 
@@ -135,6 +137,7 @@ class UserDAO extends DAO
         $data->execute();
         $result = $data->fetch();
         $isPasswordValid = password_verify($post->get('password'), $result['password']);
+        
         return [
             'result' => $result,
             'isPasswordValid' => $isPasswordValid,
@@ -202,6 +205,7 @@ class UserDAO extends DAO
         $sql = 'SELECT * FROM user WHERE id = 8';
         $data = $this->createQuery($sql);
         $result = $data->fetch(PDO::FETCH_ASSOC);
+        
         return $result;
     }
 }

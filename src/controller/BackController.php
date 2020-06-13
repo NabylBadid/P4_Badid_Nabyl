@@ -1,8 +1,8 @@
 <?php
 
-namespace App\src\controller;
+namespace App\Controller;
 
-use App\config\Parameter;
+use App\Config\Parameter;
 
 /**
  * Classe gérant les traitemens back 
@@ -17,7 +17,8 @@ class BackController extends Controller
     {
         if (!$this->session->get('pseudo')) {
             $this->session->set('need_login', 'Vous devez vous connecter pour accéder à cette page');
-            header('Location: ../public/index.php?route=login');
+            header('Location: ../public/index.php?route=login'); // Redirige le navigateur et non le serveur
+            exit;  // Permet l'arrêt de l'éxcution du script PHP pour éviter les bugs une fois le navigateur redirigé
         } else {
             return true;
         }
@@ -33,7 +34,9 @@ class BackController extends Controller
         if (!($this->session->get('role') === 'administrateur')) {
             $this->session->set('not_admin', 'Vous n\'avez pas le droit d\'accéder à cette page');
             header('Location: ../public/index.php?route=profile');
+            exit;
         } else {
+            
             return true;
         }
     }
@@ -52,6 +55,7 @@ class BackController extends Controller
 
         // Déja confirmé ?
         if ($confirmed !== null) {
+            
             return $this->view->render('administration', [
                 'articles' => $articles,
                 'comments' => $comments,
@@ -92,12 +96,15 @@ class BackController extends Controller
                     $this->articleDAO->addArticle($post, $this->session->get('id'));
                     $this->session->set('add_article', 'Le nouvel article a bien été ajouté !');
                     header('Location: ../public/index.php?route=administration');
+                    exit;
                 }
+                
                 return $this->view->render('add_article', [
                     'post' => $post,
                     'errors' => $errors
                 ]);
             }
+            
             return $this->view->render('add_article');
         }
     }
@@ -118,7 +125,9 @@ class BackController extends Controller
                     $this->articleDAO->editArticle($post, $articleId, $this->session->get('id'));
                     $this->session->set('edit_article', 'L\' article a bien été modifié');
                     header('Location: ../public/index.php?route=administration');
+                    exit;
                 }
+                
                 return $this->view->render('edit_article', [
                     'post' => $post,
                     'errors' => $errors
@@ -130,7 +139,6 @@ class BackController extends Controller
             $post->set('author', $article->getPseudo());
             $post->set('imgName', $article->getImgName());
             
-
             return $this->view->render('edit_article', [
                 'post' => $post
             ]);
@@ -148,6 +156,7 @@ class BackController extends Controller
             $this->articleDAO->deleteArticle($articleId);
             $this->session->set('delete_article', 'L\' article a bien été supprimé');
             header('Location: ../public/index.php?route=administration');
+            exit;
         }
     }
 
@@ -169,7 +178,9 @@ class BackController extends Controller
                 $this->commentDAO->editComment($post, $commentId);
                 $this->session->set('edit_comment', 'Le commentaire a bien été modifié');
                 header('Location: ../public/index.php?route=article&articleId=' . $articleId);
+                exit;
             }
+            
             return $this->view->render('edit_comment', [
                 'post' => $post,
                 'article' => $article,
@@ -178,7 +189,6 @@ class BackController extends Controller
             ]);
         }
         $post->set('content', $comment->getContent());
-        
 
         return $this->view->render('edit_comment', [
             'post' => $post,
@@ -210,10 +220,17 @@ class BackController extends Controller
      */
     public function deleteComment($commentId, $articleId)
     {
-        $this->commentDAO->getComment($commentId);
+        // $this->commentDAO->getComment($commentId);
         $this->commentDAO->deleteComment($commentId);
         $this->session->set('delete_comment', 'Le commentaire a bien été supprimé');
-        header('Location: ../public/index.php?route=article&articleId=' . $articleId);
+        // L'articleId n'est envoyé en GET que dans la page de l'article donc si il existe on renvoie vers l'article sinon c'est que le commentaire a été supprimé de la page d'administration donc on renvoie vers elle
+        if (isset($articleId)) {
+            header('Location: ../public/index.php?route=article&articleId=' . $articleId);
+            exit;
+        } else {
+            header('Location: ../public/index.php?route=administration');
+            exit;
+        }
     }
 
     /**
@@ -226,9 +243,9 @@ class BackController extends Controller
         $user = $this->userDAO->getUser($userId);
         // $comments = $this->commentDAO->getCommentsFromUser($user->getPseudo());
         if ($this->checkLoggedIn()) {
+            
             return $this->view->render('profile', [
-                'user' => $user,
-                'userId' => $userId,
+                'user' => $user
                 // 'comments' => $comments
             ]);
         }
@@ -246,7 +263,9 @@ class BackController extends Controller
                 $this->userDAO->updatePassword($post, $this->session->get('pseudo'));
                 $this->session->set('update_password', 'Le mot de passe a été mis à jour');
                 header('Location: ../public/index.php?route=profile');
+                exit;
             }
+            
             return $this->view->render('update_password');
         }
     }
@@ -285,6 +304,7 @@ class BackController extends Controller
             $this->userDAO->deleteUser($userId);
             $this->session->set('delete_user', 'L\'utilisateur a bien été supprimé');
             header('Location: ../public/index.php?route=administration');
+            exit;
         }
     }
 
@@ -303,5 +323,6 @@ class BackController extends Controller
             $this->session->set($param, 'Votre compte a bien été supprimé');
         }
         header('Location: ../public/index.php');
+        exit;
     }
 }
