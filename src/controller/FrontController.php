@@ -1,11 +1,11 @@
 <?php
 
-namespace App\src\controller;
+namespace App\Controller;
 
-use App\config\Parameter;
+use App\Config\Parameter;
 
 /**
- * Classe gérant les traitement front 
+ * Classe gérant les traitement front
  */
 class FrontController extends Controller
 {
@@ -32,7 +32,7 @@ class FrontController extends Controller
         $article = $this->articleDAO->getArticle($articleId);
 
         return $this->view->render('single', [
-            'article' => $article,
+            'article' => $article
         ]);
     }
 
@@ -50,6 +50,7 @@ class FrontController extends Controller
                 $this->commentDAO->addComment($post, $articleId);
                 $this->session->set('add_comment', 'Le nouveau commentaire a bien été ajouté !');
                 header('Location: ../public/index.php?route=article&articleId=' . $articleId);
+                exit;
             }
             $article = $this->articleDAO->getArticle($articleId);
 
@@ -72,6 +73,7 @@ class FrontController extends Controller
         $this->commentDAO->flagComment($commentId);
         $this->session->set('flag_comment', 'Le commentaire a bien été signalé');
         header('Location: ../public/index.php?route=article&articleId=' . $articleId);
+        exit;
     }
 
     /**
@@ -90,6 +92,7 @@ class FrontController extends Controller
                 $this->userDAO->register($post);
                 $this->session->set('register', 'Votre inscription a bien été effectuée !');
                 header('Location: ../public/index.php');
+                exit;
             }
             
             return $this->view->render('register', [
@@ -110,14 +113,14 @@ class FrontController extends Controller
     {
         if ($post->get('submit')) {
             $result = $this->userDAO->login($post);
-            if($result && $result['isPasswordValid']) {
+            if ($result && $result['isPasswordValid']) {
                 $this->session->set('login', 'Content de vous revoir !');
                 $this->session->set('id', $result['result']['id']);
                 $this->session->set('role', $result['result']['role']);
                 $this->session->set('pseudo', $post->get('pseudo'));
-            header('Location: ../public/index.php');
-            }
-            else {
+                header('Location: ../public/index.php');
+                exit;
+            } else {
                 $this->session->set('error_login', 'Le pseudo et/ou le mot de passe sont incorrects');
                 
                 return $this->view->render('login', [

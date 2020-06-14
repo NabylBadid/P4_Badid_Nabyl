@@ -1,6 +1,6 @@
 <?php
 
-namespace App\src\controller;
+namespace App\Controller;
 
 /**
  * Classe gérant les erreurs de traitement

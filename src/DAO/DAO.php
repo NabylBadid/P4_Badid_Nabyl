@@ -1,7 +1,7 @@
 <?php
 
 //Pour toutes les classes dans DAO
-namespace App\src\DAO;
+namespace App\DAO;
 
 //Uniquement pour la classe DAO
 use PDO;
@@ -13,7 +13,7 @@ use Exception;
 abstract class DAO
 {
     /**
-     * Connection à la bss
+     * Connection à la bdd
      * @var 
      */
     private $connection;
@@ -26,8 +26,10 @@ abstract class DAO
     {
         //Vérifie si la connexion est nulle et fait appel à getConnection()
         if ($this->connection === null) {
+            
             return $this->getConnection();
         }
+        
         //Si la connexion existe, elle est renvoyée, inutile de refaire une connexion
         return $this->connection;
     }
@@ -42,6 +44,7 @@ abstract class DAO
         try {
             $this->connection = new PDO(DB_HOST, DB_USER, DB_PASS);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
             //On renvoie la connexion
             return $this->connection;
         }
@@ -62,9 +65,11 @@ abstract class DAO
         if ($parameters) {
             $result = $this->checkConnection()->prepare($sql);
             $result->execute($parameters);
+            
             return $result;
         }
         $result = $this->checkConnection()->query($sql);
+
         return $result;
     }
 }

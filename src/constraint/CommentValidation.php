@@ -1,8 +1,8 @@
 <?php
 
-namespace App\src\constraint;
+namespace App\Constraint;
 
-use App\config\Parameter;
+use App\Config\Parameter;
 
 /**
  * Classe gérant la validation d'un commentaire
@@ -39,6 +39,7 @@ class CommentValidation extends Validation
         foreach ($post->all() as $key => $value) {
             $this->checkField($key, $value);
         }
+        
         return $this->errors;
     }
 
@@ -88,7 +89,7 @@ class CommentValidation extends Validation
 
         return array (
             $this->addError($name, $this->constraint->minLength($name, $value, 2)),
-            $this->addError($name, $this->constraint->maxLength($name, $value, 100))
+            $this->addError($name, $this->constraint->maxLength($name, $value, 255))
         );
 
 

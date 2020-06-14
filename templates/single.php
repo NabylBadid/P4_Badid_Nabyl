@@ -46,6 +46,10 @@
                                     <a href="../public/index.php?route=flagComment&commentId=<?= $comment->getId(); ?>&articleId=<?= $article->getId(); ?>">Signaler le commentaire</a>
                                 <?php
                             }
+                        } elseif ($comment->isFlag()) {
+                            ?>
+                                <span class="alert alert-primary flagedCom">Votre commentaire a été signalé</span>
+                            <?php
                         } else {
                             ?>
                                 <a href="../public/index.php?route=editComment&commentId=<?= $comment->getId(); ?>&articleId=<?= $article->getId(); ?>">Modifier le commentaire</a>

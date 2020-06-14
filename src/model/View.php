@@ -1,8 +1,8 @@
 <?php
 
-namespace App\src\model;
+namespace App\Model;
 
-use App\config\Request;
+use App\Config\Request;
 
 /**
  * Classe gérant la vue
@@ -80,6 +80,7 @@ class View
             extract($data);
             ob_start();
             require $file;
+            
             return ob_get_clean();
         }
         header('Location: index.php?route=notFound');

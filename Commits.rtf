@@ -69,6 +69,18 @@ Commit 37 : Ajout de la modification de commentaires\par
 Modifications de quelques redirections. ( apr\'e8s le modification, ajout et suppression de commentaires ).\ul\par
 \b Commit 38 : Habillage de la page de profil + Affichage des commentaires de l'user\par
 Commit 39 :  Relooking des commentaires\par
-Commit 40 : \ulnone\b0\par
+Commit 40 : Formattage du code PHP (indentation normalis\'e9e) ert application du principe de cha\'eenage des m\'e9thodes dans les DAO\par
+\b0 Explication \ulnone : Utilisation du plugin vscode "PHP Formatter" et du raccourci clavier : shift+alt+F\b\par
+\ul Commit 41 : Valeur bind\'e9es dans les DAO et utilisation du typage explicite (type hinting)\par
+\b0 Explication :\ulnone  Les valeurs transmises dans les requ\'eates SQL sont bind\'e9es pour que le SQL comprenne que les values sont des param\'e8tres de la requ\'eate et qu'ils ne peuvent donc pas la terminer. Cad qu'SQL va \'e9chapper ces attributs (',"...) pour \'e9viter les injections SQL.\par
+Les typages explicites : Le typage explicite a \'e9t\'e9 introduit avec le PHP5 et correspond au fait de pouvoir imposer un typage aux param\'e8tres de nos m\'e9thodes. (pierre giraud) \par
+\ul\b Commit 42 : Ajout de bloc info surs tous les attributs, classes et m\'e9thodes\par
+\b0 Explication :\ulnone  Utilisation du plugin vscode "PHP DocBlock" et du raccourci : /** puis Entr\'e9e\ul\b\par
+Commit 43 : Dans les dossier constraint, les noms des m\'e9thodes sont r\'e9cup\'e9r\'e9s dynamisquemetn gr\'e2ce \'e0 la m\'e9thode getMethodName() dans Constraint\par
+\b0 Explication :\ulnone  "dans Constraint" = dans la Class constraint.\par
+\ul\b Commit 44 : Les commentaires de chaque article/user sont maintenant un de leurs attributs, les entit\'e9s Article et User sont maintenant compl\'e8tes\par
+\b0 Explication :\ulnone  Article et User ont maintenant un attribut $comments.\par
+\ul\b Commit 45 : \ulnone\b0\par
+ \par
 }
  

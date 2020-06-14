@@ -1,8 +1,8 @@
 <?php
 
-namespace App\src\constraint;
+namespace App\Constraint;
 
-use App\config\Parameter;
+use App\Config\Parameter;
 
 /**
  * Classe gérant la validation des identifiants d'un utilisateur

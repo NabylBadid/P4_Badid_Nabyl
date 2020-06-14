@@ -1,8 +1,8 @@
 <?php
 
-namespace App\src\constraint;
+namespace App\Constraint;
 
-use App\config\Parameter;
+use App\Config\Parameter;
 
 /**
  * Classe gérant la validation d'un article
@@ -39,6 +39,7 @@ class ArticleValidation extends Validation
         foreach ($post->all() as $key => $value) {
             $this->checkField($key, $value);
         }
+        
         return $this->errors;
     }
 
