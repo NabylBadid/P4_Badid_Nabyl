@@ -51,9 +51,6 @@ class CommentDAO extends DAO
         $result->closeCursor();
         
         return $comments;
-        
-        // Code tuto
-        // $result = $this->createQuery($sql, [$articleId]);
     }
 
     /**
@@ -63,13 +60,7 @@ class CommentDAO extends DAO
      */
     public function getCommentsFromUser($pseudoUser)
     {
-        // Jointure avec INNER JOIN (normalisée)
         $sql = 'SELECT comment.id, comment.pseudo, comment.content, comment.flag, DATE_FORMAT(comment.createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, comment.articleId, article.title FROM comment INNER JOIN article ON comment.articleId = article.id AND comment.pseudo = ? ORDER BY createdAt DESC';
-        // Jointure avec WHERE (dénormalisée ou ancienne)
-        // $sql = 'SELECT comment.id, comment.pseudo, comment.content, comment.flag, DATE_FORMAT(comment.createdAt, \'le %d/%m/%Y à %Hh%imin%ss\') AS createdAt, comment.articleId, article.title FROM comment, article WHERE comment.articleId = article.id AND comment.pseudo = ? ORDER BY comment.createdAt DESC';
-        
-        // Code tuto
-        // $result = $this->createQuery($sql, [$userId]);
 
         $result = $this->checkConnection()->prepare($sql);
         $result->bindValue(1, $pseudoUser , PDO::PARAM_STR);
@@ -100,9 +91,6 @@ class CommentDAO extends DAO
         $result->closeCursor();
         
         return $this->buildObject($comment);
-
-        // Code tuto
-        // $result = $this->createQuery($sql, [$commentId]);
     }
 
     /**
@@ -120,9 +108,6 @@ class CommentDAO extends DAO
         $result->bindValue(3, 0, PDO::PARAM_INT);
         $result->bindValue(4, $articleId, PDO::PARAM_INT);
         $result->execute();
-
-        // Code tuto
-        //$this->createQuery($sql, [htmlspecialchars($post->get('pseudo')),$post->get('content'), 0, $articleId]);
     }
 
     /**
@@ -138,11 +123,6 @@ class CommentDAO extends DAO
         $result->bindValue(':content', $post->get('content'), PDO::PARAM_STR);
         $result->bindValue(':commentId', $commentId, PDO::PARAM_INT);
         $result->execute();
-        
-        // $this->createQuery($sql, [
-        //     'content' => $post->get('content'),
-        //     'commentId' => $commentId
-        //     ]);
     }
 
     /**
@@ -157,9 +137,6 @@ class CommentDAO extends DAO
         $result->bindValue(1, 1, PDO::PARAM_INT);
         $result->bindValue(2, $commentId, PDO::PARAM_INT);
         $result->execute();
-
-        //Code tuto
-        // $this->createQuery($sql, [1, $commentId]);
     }
     
     /**
@@ -174,9 +151,6 @@ class CommentDAO extends DAO
         $result->bindValue(1, 0, PDO::PARAM_INT);
         $result->bindValue(2, $commentId, PDO::PARAM_INT);
         $result->execute();
-
-        // Code tuto
-        // $this->createQuery($sql, [0, $commentId]);
     }
 
     /**
@@ -190,9 +164,6 @@ class CommentDAO extends DAO
         $result = $this->checkConnection()->prepare($sql);
         $result->bindValue(1, $commentId, PDO::PARAM_INT);
         $result->execute();
-        
-        // Code tuto
-        // $this->createQuery($sql, [$commentId]);
     }
 
     /**
@@ -214,8 +185,5 @@ class CommentDAO extends DAO
         $result->closeCursor();
         
         return $comments;
-
-        // Requête tuto
-        // $result = $this->createQuery($sql, [1]);
     }
 }

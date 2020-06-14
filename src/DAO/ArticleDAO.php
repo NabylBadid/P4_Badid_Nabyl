@@ -76,18 +76,9 @@ class ArticleDAO extends DAO
     {
         $sql = 'SELECT article.id, article.title, article.content, user.pseudo, DATE_FORMAT(article.createdAt, \' %d/%m/%Y à %Hh%imin%ss\') AS createdAt, article.imgName FROM article INNER JOIN user ON article.user_id = user.id WHERE article.id =:articleId';
 
-        // Code tuto (il y a une faille que les values ne sont pas bindées)
-        // $result = $this->createQuery($sql, [$articleId]);
-    
-        // Code de DAO.php , les values sont bindées ce qui permet de les échapper (pour éviter les injections SQL)
         $result = $this->checkConnection()->prepare($sql);
         $result->bindValue(':articleId', $articleId, PDO::PARAM_INT);
         $result->execute();
-
-        // $data = $result->fetch(\PDO::FETCH_ASSOC);
-        // $article = new Article($data);
-        // return $article;
-
         $article = $result->fetch();
         $result->closeCursor();
         
@@ -109,9 +100,6 @@ class ArticleDAO extends DAO
         $result->bindValue(3, $post->get('imgName'), PDO::PARAM_STR);
         $result->bindValue(4, $userId, PDO::PARAM_INT);
         $result->execute();
-
-        // Code tuto (il y a une faille que les values ne sont pas bindées)
-        // $this->createQuery($sql, [$post->get('title'), $post->get('content'), $post->get('imgName'), $userId]);
     }
 
     /**
@@ -131,15 +119,6 @@ class ArticleDAO extends DAO
         $result->bindValue(':user_id', $userId, PDO::PARAM_INT);
         $result->bindValue(':articleId', $articleId, PDO::PARAM_INT);
         $result->execute();
-        
-        // Code tuto
-        // $this->createQuery($sql, [
-        //     'title' => $post->get('title'),
-        //     'content' => $post->get('content'),
-        //     'imgName' => $post->get('imgName'),
-        //     'user_id' => $userId,
-        //     'articleId' => $articleId
-        // ]);
     }
 
     /**
@@ -154,14 +133,9 @@ class ArticleDAO extends DAO
         $result->bindValue(1, $articleId, PDO::PARAM_INT);
         $result->execute();
 
-        // Code tuto
-        // $this->createQuery($sql, [$articleId]);
         $sql = 'DELETE FROM article WHERE id = ?';
         $result = $this->checkConnection()->prepare($sql);
         $result->bindValue(1, $articleId, PDO::PARAM_INT);
         $result->execute();
-
-        // Code tuto
-        // $this->createQuery($sql, [$articleId]);
     }
 }

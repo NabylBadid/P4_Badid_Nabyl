@@ -1,7 +1,6 @@
 <?php $this->title = 'Accueil'; ?>
 <div class="img">
     <img src="../public/img/acceuil23.jpg" alt="Image d'acceuil" class="img-fluid img-thumbnail"><br />
-    <?php //include("showSession.php");?>
 </div>
 
 <div class="test">
@@ -11,7 +10,6 @@ echo $this->session->show('login');
 echo $this->session->show('logout');
 echo $this->session->show('error_404');
 echo $this->session->show('error_500');
-var_dump($this->session);
     ?>
 </div>
 

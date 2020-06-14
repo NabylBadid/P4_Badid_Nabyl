@@ -39,34 +39,6 @@ class User
      */
     private $comments;
 
-    /**
-     * Constructeur de la classe qui assigne les données spécifiées en paramètre aux attributs correspondants.
-     * @param $valeurs array Les valeurs à assigner
-     * @return void
-     */
-    public function __construct($values = [])
-    {
-        if (!empty($values)) {
-            $this->hydrate($values);
-        }
-    }
-
-    /**
-     * Méthode assignant les valeurs spécifiées aux attributs correspondant.
-     * @param $donnees array Les données à assigner
-     * @return void
-     */
-    public function hydrate($data)
-    {
-        foreach ($data as $attribut => $value) {
-            $method = 'set'.ucfirst($attribut);
-
-            if (is_callable([$this, $method])) {
-                $this->$method($value);
-            }
-        }
-    }
-
     // GETTERS
 
     /**

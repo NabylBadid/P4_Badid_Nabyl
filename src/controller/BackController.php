@@ -17,8 +17,8 @@ class BackController extends Controller
     {
         if (!$this->session->get('pseudo')) {
             $this->session->set('need_login', 'Vous devez vous connecter pour accéder à cette page');
-            header('Location: ../public/index.php?route=login'); // Redirige le navigateur et non le serveur
-            exit;  // Permet l'arrêt de l'éxcution du script PHP pour éviter les bugs une fois le navigateur redirigé
+            header('Location: ../public/index.php?route=login');
+            exit; 
         } else {
             return true;
         }
@@ -220,10 +220,8 @@ class BackController extends Controller
      */
     public function deleteComment($commentId, $articleId)
     {
-        // $this->commentDAO->getComment($commentId);
         $this->commentDAO->deleteComment($commentId);
         $this->session->set('delete_comment', 'Le commentaire a bien été supprimé');
-        // L'articleId n'est envoyé en GET que dans la page de l'article donc si il existe on renvoie vers l'article sinon c'est que le commentaire a été supprimé de la page d'administration donc on renvoie vers elle
         if (isset($articleId)) {
             header('Location: ../public/index.php?route=article&articleId=' . $articleId);
             exit;
@@ -241,12 +239,10 @@ class BackController extends Controller
     public function profile($userId)
     {
         $user = $this->userDAO->getUser($userId);
-        // $comments = $this->commentDAO->getCommentsFromUser($user->getPseudo());
         if ($this->checkLoggedIn()) {
             
             return $this->view->render('profile', [
                 'user' => $user
-                // 'comments' => $comments
             ]);
         }
     }
@@ -262,7 +258,7 @@ class BackController extends Controller
             if ($post->get('submit')) {
                 $this->userDAO->updatePassword($post, $this->session->get('pseudo'));
                 $this->session->set('update_password', 'Le mot de passe a été mis à jour');
-                header('Location: ../public/index.php?route=profile');
+                header('Location: ../public/index.php');
                 exit;
             }
             

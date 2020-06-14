@@ -10,7 +10,6 @@
     $sessionPseudo = $this->session->get('pseudo');
     if (isset($sessionPseudo)) {
         include('form_comment.php');
-        // include('showSession.php');
         $this->session->show('add_comment');
     }
     ?>
@@ -64,7 +63,3 @@
     <?php
     } ?>
 </div>
-
-<h1>rrr</h1>
-
-<?php var_dump($article); ?>

@@ -53,13 +53,10 @@ class ArticleValidation extends Validation
     {
         if ($name === 'title') {
             $error = $this->checkTitle($name, $value);
-            // $this->addError($name, $error);
         } elseif ($name === 'content') {
             $error = $this->checkContent($name, $value);
-            // $this->addError($name, $error);
         } elseif ($name === 'imgName') {
             $error = $this->checkImgName($name, $value);
-            // $this->addError($name, $error);
         }
     }
 
@@ -93,16 +90,6 @@ class ArticleValidation extends Validation
             $this->addError($name, $this->constraint->minLength($name, $value, 2)),
             $this->addError($name, $this->constraint->maxLength($name, $value, 255))
         );
-
-        // if ($this->constraint->notBlank($name, $value)) {
-        //     return $this->constraint->notBlank('titre', $value);
-        // }
-        // if ($this->constraint->minLength($name, $value, 2)) {
-        //     return $this->constraint->minLength('titre', $value, 2);
-        // }
-        // if ($this->constraint->maxLength($name, $value, 255)) {
-        //     return $this->constraint->maxLength('titre', $value, 255);
-        // }
     }
 
     /**
@@ -119,13 +106,6 @@ class ArticleValidation extends Validation
         return array (
             $this->addError($name, $this->constraint->minLength($name, $value, 2))
         );
-
-        // if ($this->constraint->notBlank($name, $value)) {
-        //     return $this->constraint->notBlank('contenu', $value);
-        // }
-        // if ($this->constraint->minLength($name, $value, 2)) {
-        //     return $this->constraint->minLength('contenu', $value, 2);
-        // }
     }
 
     /**
@@ -143,15 +123,5 @@ class ArticleValidation extends Validation
             $this->addError($name, $this->constraint->minLength($name, $value, 3)),
             $this->addError($name, $this->constraint->maxLength($name, $value, 100))
         );
-
-        // if ($this->constraint->notBlank($name, $value)) {
-        //     return $this->constraint->notBlank('imgName', $value);
-        // }
-        // if ($this->constraint->minLength($name, $value, 3)) {
-        //     return $this->constraint->minLength('imgName', $value, 3);
-        // }
-        // if ($this->constraint->maxLength($name, $value, 100)) {
-        //     return $this->constraint->maxLength('imgName', $value, 100);
-        // }
     }
 }

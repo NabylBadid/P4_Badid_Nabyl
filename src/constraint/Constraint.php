@@ -7,13 +7,6 @@ namespace App\Constraint;
  */
 class Constraint
 {
-    // public function notBlank($name, $value)
-    // {
-    //     if (empty($value)) {
-    //         return '<p>Le champ '.$name.' saisi est vide</p>';
-    //     }
-    // }
-    
     /**
      * Méthode appliquant une longeur minimale à un champ
      * @param string $name nom du champ

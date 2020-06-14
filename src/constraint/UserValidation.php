@@ -53,10 +53,8 @@ class UserValidation extends Validation
     {
         if ($name === 'pseudo') {
             $error = $this->checkPseudo($name, $value);
-            // $this->addError($name, $error);
         } elseif ($name === 'password') {
             $error = $this->checkPassword($name, $value);
-            // $this->addError($name, $error);
         }
     }
 
@@ -90,36 +88,6 @@ class UserValidation extends Validation
             $this->addError($name, $this->constraint->minLength($name, $value, 2)),
             $this->addError($name, $this->constraint->maxLength($name, $value, 255))
         );
-
-        // $errors = [];
-        // // $errors[] = $this->constraint->notBlank('pseudo', $value);
-        // $minLength = $this->constraint->minLength('pseudo', $value, 2);
-        // $maxLength = $this->constraint->maxLength('pseudo', $value, 255);
-        // // $errors[] = isset($minLenght) ? $minLenght : '';
-        // // $errors[] = isset($maxLength) ? $maxLength : '';
-        // if ($minLength) {
-        //     $errors[] = $minLength;
-        // }
-        // if ($maxLength) {
-        //     $errors[] = $maxLength;
-        // }
-        // ;
-        
-
-        // if ($errors !== null) {
-        //     // return $this->errors;
-        // }
-
-        // Code tuto
-        // if ($this->constraint->notBlank($name, $value)) {
-        //     return $this->constraint->notBlank('pseudo', $value);
-        // }
-        // if ($this->constraint->minLength($name, $value, 2)) {
-        //     return $this->constraint->minLength('pseudo', $value, 2);
-        // }
-        // if ($this->constraint->maxLength($name, $value, 255)) {
-        //     return $this->constraint->maxLength('pseudo', $value, 255);
-        // }
     }
 
     /**
@@ -137,25 +105,5 @@ class UserValidation extends Validation
             $this->addError($name, $this->constraint->minLength($name, $value, 2)),
             $this->addError($name, $this->constraint->maxLength($name, $value, 255))
         );
-
-        // $errors = [];
-        // $this->errors[] = $this->constraint->notBlank($name, $value);
-        // $this->errors[] = $this->constraint->minLength($name, $value, 2);
-        // $this->errors[] = $this->constraint->maxLength($name, $value, 255);
-        // if ($this->errors !== null) {
-        //     return $this->errors;
-        // }
-
-        // Code tuto
-        // if ($this->constraint->notBlank($name, $value)) {
-        //     return $this->constraint->notBlank('password', $value);
-        // }
-        // if ($this->constraint->minLength($name, $value, 2)) {
-        //     return $this->constraint->minLength('password', $value, 2);
-        // }
-        // if ($this->constraint->maxLength($name, $value, 255)) {
-        //     return $this->constraint->maxLength('password', $value, 255);
-        // }
-
     }
 }

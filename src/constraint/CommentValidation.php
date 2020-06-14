@@ -53,11 +53,9 @@ class CommentValidation extends Validation
     {
         if ($name === 'pseudo') {
             $error = $this->checkPseudo($name, $value);
-            // $this->addError($name, $error);
         } else
         if ($name === 'content') {
             $error = $this->checkContent($name, $value);
-            // $this->addError($name, $error);
         }
     }
 
@@ -91,17 +89,6 @@ class CommentValidation extends Validation
             $this->addError($name, $this->constraint->minLength($name, $value, 2)),
             $this->addError($name, $this->constraint->maxLength($name, $value, 255))
         );
-
-
-    //     // if ($this->constraint->notBlank($name, $value)) {
-    //     //     return $this->constraint->notBlank('pseudo', $value);
-    //     // }
-    //     // if ($this->constraint->minLength($name, $value, 2)) {
-    //     //     return $this->constraint->minLength('pseudo', $value, 2);
-    //     // }
-    //     // if ($this->constraint->maxLength($name, $value, 255)) {
-    //     //     return $this->constraint->maxLength('pseudo', $value, 255);
-    //     // }
     }
 
     /**
@@ -118,12 +105,5 @@ class CommentValidation extends Validation
         return array (
             $this->addError($name, $this->constraint->minLength($name, $value, 2)),
         );
-
-        // if ($this->constraint->notBlank($name, $value)) {
-        //     return $this->constraint->notBlank('contenu', $value);
-        // }
-        // if ($this->constraint->minLength($name, $value, 2)) {
-        //     return $this->constraint->minLength('contenu', $value, 2);
-        // }
     }
 }

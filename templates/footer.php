@@ -56,7 +56,7 @@
 
 <!-- Copyright -->
 <div class="footer-copyright text-center py-3">© 2020 Copyright :
-  <a href="https://mdbootstrap.com/"> JeanForteroche.com</a>
+  <a href="https://jeanforteroche.webagencyp.com/"> JeanForteroche.com</a>
 </div>
 <!-- Copyright -->
 

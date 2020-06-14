@@ -97,9 +97,6 @@ class UserDAO extends DAO
         $result->bindValue(2, password_hash($post->get('password'), PASSWORD_BCRYPT), PDO::PARAM_STR);
         $result->bindValue(3, 'utilisateur', PDO::PARAM_STR);
         $result->execute();
-
-        // Code tuto
-        // $this->createQuery($sql, [$post->get('pseudo'), password_hash($post->get('password'), PASSWORD_BCRYPT), 2]);
     }
 
     /**
@@ -119,9 +116,6 @@ class UserDAO extends DAO
             
             return '<p>Le pseudo existe déjà</p>';
         }
-
-        // Code tuto
-        // $result = $this->createQuery($sql, [$post->get('pseudo')]);
     }
 
     /**
@@ -142,9 +136,6 @@ class UserDAO extends DAO
             'result' => $result,
             'isPasswordValid' => $isPasswordValid,
         ];
-
-        // Code tuto
-        // $data = $this->createQuery($sql, [$post->get('pseudo')]);
     }
 
     /**
@@ -160,8 +151,6 @@ class UserDAO extends DAO
         $result->bindValue(1, password_hash($post->get('password'), PASSWORD_BCRYPT), PDO::PARAM_STR);
         $result->bindValue(2, $pseudo, PDO::PARAM_STR);
         $result->execute();
-        
-        // $this->createQuery($sql, [password_hash($post->get('password'), PASSWORD_BCRYPT), $pseudo]);
     }
 
     /**
@@ -175,9 +164,6 @@ class UserDAO extends DAO
         $result = $this->checkConnection()->prepare($sql);
         $result->bindValue(1, $pseudo, PDO::PARAM_STR);
         $result->execute();
-
-        // Code tuto
-        // $this->createQuery($sql, [$pseudo]);
     }
 
     /**
@@ -191,9 +177,6 @@ class UserDAO extends DAO
         $result = $this->checkConnection()->prepare($sql);
         $result->bindValue(1, $userId, PDO::PARAM_INT);
         $result->execute();
-
-        // Code tuto
-        // $this->createQuery($sql, [$userId]);
     }
 
     /**
