@@ -120,7 +120,6 @@ class ArticleValidation extends Validation
         $name = $this->constraint->getMethodName(__CLASS__, __METHOD__);
 
         return array (
-            $this->addError($name, $this->constraint->minLength($name, $value, 3)),
             $this->addError($name, $this->constraint->maxLength($name, $value, 100))
         );
     }
