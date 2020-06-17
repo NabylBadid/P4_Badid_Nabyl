@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Model;
+namespace App\Entity;
 
 use DateTime;
 
 /**
- * Classe gérant l'entité commentaire
+ * Classe gérant l'entité article
  */
-class Comment
+class Article
 {
     /**
      * @var int
@@ -17,7 +17,7 @@ class Comment
     /**
      * @var string
      */
-    private $pseudo;
+    private $title;
 
     /**
      * @var string
@@ -27,7 +27,12 @@ class Comment
     /**
      * @var string
      */
-    private $articleId;
+    private $pseudo;
+
+    /**
+     * @var string
+     */
+    private $imgName;
 
     /**
      * @var DateTime
@@ -35,18 +40,34 @@ class Comment
     private $createdAt;
 
     /**
-     * @var bool
+     * @var Comment
      */
-    private $flag;
+    private $comments;
 
     // GETTERS
 
     /**
      * @return int
      */
-    public function getId() : ?int
+    public function getId() : ?int // = retourne soit un int soit null
     {
         return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle() : ?string
+    {
+        return $this->title;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getContent() : ?string
+    {
+        return $this->content;
     }
 
     /**
@@ -56,23 +77,15 @@ class Comment
     {
         return $this->pseudo;
     }
-
+    
     /**
      * @return string
      */
-    public function getContent()  : ?string
+    public function getImgName() : ?string
     {
-        return $this->content;
+        return $this->imgName;
     }
-
-    /**
-     * @return string
-     */
-    public function getArticleId()  : ?string
-    {
-        return $this->articleId;
-    }
-
+    
     /**
      * @return DateTime
      */
@@ -82,11 +95,11 @@ class Comment
     }
 
     /**
-     * @return bool
+     * @return Comment
      */
-    public function isFlag() : ?bool
+    public function getComments()
     {
-        return $this->flag;
+        return $this->comments;
     }
 
     // SETTERS
@@ -95,7 +108,7 @@ class Comment
      * @param int $id
      * @return self
      */
-    public function setId(?int $id) : self
+    public function setId(?int $id) : self // = prend en parametre soit un int soit un null et se renvoi lui-même
     {
         $this->id = $id;
 
@@ -103,12 +116,12 @@ class Comment
     }
 
     /**
-     * @param string $pseudo
+     * @param string $title
      * @return self
      */
-    public function setPseudo(?string $pseudo) : self
+    public function setTitle(?string $title) : self
     {
-        $this->pseudo = $pseudo;
+        $this->title = $title;
 
         return $this;
     }
@@ -125,12 +138,23 @@ class Comment
     }
 
     /**
-     * @param string $articleId
+     * @param string $pseudo
      * @return self
      */
-    public function setArticleId(?string $articleId) : self
+    public function setPseudo(?string $pseudo) : self
     {
-        $this->articleId = $articleId;
+        $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @param string $imgName
+     * @return self
+     */
+    public function setImgName(?string $imgName) : self
+    {
+        $this->imgName = $imgName;
 
         return $this;
     }
@@ -147,13 +171,14 @@ class Comment
     }
 
     /**
-     * @param bool $flag
+     * @param CommentDAO $comments
      * @return self
      */
-    public function setFlag($flag) : self
+    public function setComments($comments) : self
     {
-        $this->flag = $flag;
+        $this->comments = $comments;
 
         return $this;
     }
+
 }

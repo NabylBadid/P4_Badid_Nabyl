@@ -194,6 +194,10 @@ img .img-thumbnail {
   margin-bottom: 50px;
 }
 
+.img-responsive {
+  margin: 0 auto;
+}
+
 .container-fluid {
   margin-top: 10px;
 }
@@ -215,7 +219,7 @@ img .img-thumbnail {
 }
 
 .img {
-  position: relative;
+  position: relative; /* l'image est possible relative pour le afficher le show session par dessus (dc pas utile tout de suite) */
 }
 
 .showSession {

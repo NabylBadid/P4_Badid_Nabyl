@@ -1,7 +1,7 @@
 <?php
 
 //Pour toutes les classes dans DAO
-namespace App\DAO;
+namespace App\Model;
 
 //Uniquement pour la classe DAO
 use PDO;

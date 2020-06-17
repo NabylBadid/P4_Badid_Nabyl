@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Model;
+namespace App\Entity;
 
 use DateTime;
 
 /**
- * Classe gérant l'entité utilisateur
+ * Classe gérant l'entité commentaire
  */
-class User
+class Comment
 {
     /**
      * @var int
@@ -22,7 +22,12 @@ class User
     /**
      * @var string
      */
-    private $password;
+    private $content;
+
+    /**
+     * @var string
+     */
+    private $articleId;
 
     /**
      * @var DateTime
@@ -30,14 +35,9 @@ class User
     private $createdAt;
 
     /**
-     * @var string
+     * @var bool
      */
-    private $role;
-
-    /**
-     * @var Comment
-     */
-    private $comments;
+    private $flag;
 
     // GETTERS
 
@@ -60,9 +60,17 @@ class User
     /**
      * @return string
      */
-    public function getPassword() : ?string
+    public function getContent()  : ?string
     {
-        return $this->password;
+        return $this->content;
+    }
+
+    /**
+     * @return string
+     */
+    public function getArticleId()  : ?string
+    {
+        return $this->articleId;
     }
 
     /**
@@ -74,23 +82,15 @@ class User
     }
 
     /**
-     * @return string
+     * @return bool
      */
-    public function getRole()  : ?string
+    public function isFlag() : ?bool
     {
-        return $this->role;
+        return $this->flag;
     }
 
-    /**
-     * @return Comment
-     */
-    public function getComments()
-    {
-        return $this->comments;
-    }
-    
     // SETTERS
-    
+
     /**
      * @param int $id
      * @return self
@@ -106,9 +106,31 @@ class User
      * @param string $pseudo
      * @return self
      */
-    public function setPseudo(?string $pseudo)  : self
+    public function setPseudo(?string $pseudo) : self
     {
         $this->pseudo = $pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @param string $content
+     * @return self
+     */
+    public function setContent(?string $content) : self
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * @param string $articleId
+     * @return self
+     */
+    public function setArticleId(?string $articleId) : self
+    {
+        $this->articleId = $articleId;
 
         return $this;
     }
@@ -117,7 +139,7 @@ class User
      * @param DateTime $createdAt
      * @return self
      */
-    public function setCreatedAt($createdAt)  : self
+    public function setCreatedAt($createdAt) : self
     {
         $this->createdAt = $createdAt;
 
@@ -125,34 +147,12 @@ class User
     }
 
     /**
-     * @param string $password
+     * @param bool $flag
      * @return self
      */
-    public function setPassword(?string $password)  : self
+    public function setFlag($flag) : self
     {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * @param string $role
-     * @return self
-     */
-    public function setRole($role)  : self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    /**
-     * @param CommentDAO $comments
-     * @return self
-     */
-    public function setComments($comments) : self
-    {
-        $this->comments = $comments;
+        $this->flag = $flag;
 
         return $this;
     }

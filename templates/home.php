@@ -1,6 +1,6 @@
 <?php $this->title = 'Accueil'; ?>
 <div class="img">
-    <img src="../public/img/acceuil23.jpg" alt="Image d'acceuil" class="img-fluid img-thumbnail"><br />
+    <img src="../public/img/acceuil23.jpg" alt="Image d'acceuil" class="d-block mx-auto img-responsive img-thumbnail"><br />
 </div>
 
 <div class="test">
@@ -19,7 +19,17 @@ foreach ($articles as $article) {
         ?>
             <div class="row">
                 <div class="col-md-3 imgBook">
-                    <img src="../public/img/<?= htmlspecialchars($article->getImgName()); ?>" class="img-thumbnail">
+                    <?php
+                        if ($article->getImgName() != null) {
+                            ?>
+                                <img src="../public/img/<?= htmlspecialchars($article->getImgName());?>" class="img-thumbnail rounded mx-auto d-block"><br />
+                            <?php
+                        } else {
+                            ?> 
+                                <img src="../public/img/pas-image-disponible.png" class="img-thumbnail rounded mx-auto d-block"><br />
+                            <?php
+                        }   
+                    ?>
                 </div>
                 <div class="col-md-9">
                     <div class="title">

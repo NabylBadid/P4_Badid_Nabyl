@@ -4,10 +4,10 @@ namespace App\Controller;
 
 use App\Config\Request;
 use App\Constraint\Validation;
-use App\DAO\ArticleDAO;
-use App\DAO\CommentDAO;
-use App\DAO\UserDAO;
-use App\Model\View;
+use App\Model\ArticleDAO;
+use App\Model\CommentDAO;
+use App\Model\UserDAO;
+use App\Entity\View;
 
 /**
  * Classe permettant l'accès aux données nécessaires dans FrontController, BackController et ErrorController

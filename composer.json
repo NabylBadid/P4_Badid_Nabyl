@@ -4,8 +4,8 @@
       "App\\Config\\":"Config/",
       "App\\Controller\\":"src/Controller/",
       "App\\Constraint\\":"src/Constraint/",
-      "App\\DAO\\":"src/DAO/",
-      "App\\Model\\":"src/Model/"
+      "App\\Model\\":"src/Model/",
+      "App\\Entity\\":"src/Entity/"
     }
   }
 }
