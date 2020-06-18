@@ -80,13 +80,13 @@ class CommentValidation extends Validation
      * @param string $value saisie utilisateur
      * @return array
      */
-    private function checkPseudo($name, $value)
+    private function checkUserId($name, $value)
     {
-        $value = $this->constraint->sanitizeString($value);
+        $value = $this->constraint->validInt($value);
         $name = $this->constraint->getMethodName(__CLASS__, __METHOD__);
 
         return array (
-            $this->addError($name, $this->constraint->minLength($name, $value, 2)),
+            $this->addError($name, $this->constraint->minLength($name, $value, 1)),
             $this->addError($name, $this->constraint->maxLength($name, $value, 255))
         );
     }

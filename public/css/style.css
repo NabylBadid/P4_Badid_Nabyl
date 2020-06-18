@@ -218,18 +218,6 @@ img .img-thumbnail {
   text-decoration: none;
 }
 
-.img {
-  position: relative; /* l'image est possible relative pour le afficher le show session par dessus (dc pas utile tout de suite) */
-}
-
-.showSession {
-  position: absolute;
-  top: 5%;
-  left: 50%;
-  opacity: 0.9;
-  transform: translate(-50%);
-}
-
 /* Single */
 
 .single,

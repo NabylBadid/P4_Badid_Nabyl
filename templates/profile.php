@@ -3,6 +3,18 @@
 <div class="container profile">
     <?= $this->session->show('update_password'); ?>
     <h2>Bienvenue <?= $user->getPseudo(); ?></h2><br />
+    <?php
+
+    include('showSession.php');
+
+    $arraySession = array(
+        $this->session->show('delete_account'), 
+        $this->session->show('update_password')
+    );
+
+    echo showSession($arraySession);
+
+    ?>
     <p>Votre compte à été créé le <?= $user->getCreatedAt();?></p>
     <h3>Les commentaires que vous avez posté :</h3><br />
 <?php

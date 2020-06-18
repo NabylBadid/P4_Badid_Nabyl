@@ -3,33 +3,38 @@
     <img src="../public/img/acceuil23.jpg" alt="Image d'acceuil" class="d-block mx-auto img-responsive img-thumbnail"><br />
 </div>
 
-<div class="test">
-    <?php
-echo $this->session->show('register');
-echo $this->session->show('login');
-echo $this->session->show('logout');
-echo $this->session->show('error_404');
-echo $this->session->show('error_500');
-    ?>
+<div class="container">
+<?php
+include('showSession.php');
+
+$arraySession = array(
+    $this->session->show('register'),
+    $this->session->show('login'),
+    $this->session->show('logout'),
+    $this->session->show('error_404'),
+    $this->session->show('error_500')
+);
+
+echo showSession($arraySession);
+?>
 </div>
 
 <div class="container books">
 <?php
 foreach ($articles as $article) {
-        ?>
+    ?>
             <div class="row">
                 <div class="col-md-3 imgBook">
                     <?php
                         if ($article->getImgName() != null) {
                             ?>
-                                <img src="../public/img/<?= htmlspecialchars($article->getImgName());?>" class="img-thumbnail rounded mx-auto d-block"><br />
+                                <img src="../public/img/<?= htmlspecialchars($article->getImgName()); ?>" class="img-thumbnail rounded mx-auto d-block"><br />
                             <?php
                         } else {
                             ?> 
                                 <img src="../public/img/pas-image-disponible.png" class="img-thumbnail rounded mx-auto d-block"><br />
                             <?php
-                        }   
-                    ?>
+                        } ?>
                 </div>
                 <div class="col-md-9">
                     <div class="title">
@@ -47,7 +52,7 @@ foreach ($articles as $article) {
             </div>
             <hr>
             <?php
-    }
+}
 ?>
 
 </div>

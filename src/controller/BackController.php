@@ -3,12 +3,25 @@
 namespace App\Controller;
 
 use App\Config\Parameter;
+use App\Controller\ErrorController;
 
 /**
- * Classe gérant les traitemens back 
+ * Classe gérant les traitemens backend
  */
 class BackController extends Controller
 {
+    /**
+     * @var ErrorController
+     */
+    private $errorController;
+
+    public function __construct()
+    {
+        // Appel du constructeur de la classe mère (car celui-ci n'est pas appelé automatiquement)
+        parent::__construct();
+        // Création d'une instance d'errorController
+        $this->errorController = new ErrorController();
+    }
     /**
      * Méthode vérifiant si le visiteur est connecté
      * @return void
@@ -18,7 +31,7 @@ class BackController extends Controller
         if (!$this->session->get('pseudo')) {
             $this->session->set('need_login', 'Vous devez vous connecter pour accéder à cette page');
             header('Location: ../public/index.php?route=login');
-            exit; 
+            exit;
         } else {
             return true;
         }
@@ -36,7 +49,6 @@ class BackController extends Controller
             header('Location: ../public/index.php?route=profile');
             exit;
         } else {
-            
             return true;
         }
     }
@@ -55,7 +67,6 @@ class BackController extends Controller
 
         // Déja confirmé ?
         if ($confirmed !== null) {
-            
             return $this->view->render('administration', [
                 'articles' => $articles,
                 'comments' => $comments,
@@ -170,10 +181,16 @@ class BackController extends Controller
     public function editComment(Parameter $post, $commentId, $articleId)
     {
         $article = $this->articleDAO->getArticle($articleId);
-        // $comments = $this->commentDAO->getCommentsFromArticle($articleId);
         $comment = $this->commentDAO->getComment($commentId);
         if ($post->get('submit')) {
             $errors = $this->validation->validateComment($post);
+            $invalidUserId = $this->userDAO->checkUserId($post->get('id'));
+            if ($invalidUserId) {
+                // Affichage de l'erreur
+                // $errors['userId'] = $invalidUserId;
+                // Redirection errorServer
+                $this->errorController->errorServer();
+            }
             if (!$errors) {
                 $this->commentDAO->editComment($post, $commentId);
                 $this->session->set('edit_comment', 'Le commentaire a bien été modifié');
@@ -240,7 +257,6 @@ class BackController extends Controller
     {
         $user = $this->userDAO->getUser($userId);
         if ($this->checkLoggedIn()) {
-            
             return $this->view->render('profile', [
                 'user' => $user
             ]);

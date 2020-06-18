@@ -15,6 +15,7 @@ class ErrorController extends Controller
     {
         $this->session->set('error_404', 'Oops désolé, la page demandée n\'existe pas !');
         header('Location: ../public/index.php');
+        exit;
     }
 
     /**
@@ -25,5 +26,6 @@ class ErrorController extends Controller
     {
         $this->session->set('error_500', 'Oops désolé, il y a eu un problème avec le serveur !');
         header('Location: ../public/index.php');
+        exit;
     }
 }

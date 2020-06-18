@@ -23,7 +23,7 @@ class UserDAO extends DAO
      * @param $valeurs array Les valeurs à assigner
      * @return void
      */
-    public function __construct() 
+    public function __construct()
     {
         $this->commentDAO = new CommentDAO;
     }
@@ -57,7 +57,7 @@ class UserDAO extends DAO
         $result = $this->createQuery($sql);
         $users = [];
 
-        foreach ($result as $row){
+        foreach ($result as $row) {
             $userId = $row['id'];
             $users[$userId] = $this->buildObject($row);
         }
@@ -84,7 +84,7 @@ class UserDAO extends DAO
     }
 
     /**
-     * Méthode enregistrant un nouvel utilisateur 
+     * Méthode enregistrant un nouvel utilisateur
      * @param Parameter $post données POST envoyés pas l'utilisateur
      * @return void
      */
@@ -113,8 +113,25 @@ class UserDAO extends DAO
 
         $isUnique = $result->fetchColumn();
         if ($isUnique) {
-            
             return '<p>Le pseudo existe déjà</p>';
+        }
+    }
+
+    /**
+     * Méthode vérifiant que le pseudo entré n'existe pas déjà
+     * @param Parameter $post données POST envoyées par l'utilisateur
+     * @return void
+     */
+    public function checkUserId($userId)
+    {
+        $sql = 'SELECT COUNT(id) FROM user WHERE id = ?';
+        $result = $this->checkConnection()->prepare($sql);
+        $result->bindValue(1, $userId, PDO::PARAM_INT);
+        $result->execute();
+
+        $exist = $result->fetchColumn();
+        if (!$exist) {
+            return '<p>L\'utilisateur n\'existe pas</p>';
         }
     }
 

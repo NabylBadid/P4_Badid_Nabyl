@@ -101,12 +101,13 @@ class CommentDAO extends DAO
      */
     public function addComment(Parameter $post, $articleId)
     {
-        $sql = 'INSERT INTO comment (pseudo, content, createdAt, flag, articleId) VALUES (?, ?, NOW(), ?, ?)';
+        $sql = 'INSERT INTO comment (pseudo, content, createdAt, flag, articleId, userId) VALUES (?, ?, NOW(), ?, ?, ?)';
         $result = $this->checkConnection()->prepare($sql);
         $result->bindValue(1, htmlspecialchars($post->get('pseudo')), PDO::PARAM_STR);
         $result->bindValue(2, $post->get('content'), PDO::PARAM_STR);
         $result->bindValue(3, 0, PDO::PARAM_INT);
         $result->bindValue(4, $articleId, PDO::PARAM_INT);
+        $result->bindValue(5, $userId, PDO::PARAM_INT);
         $result->execute();
     }
 
