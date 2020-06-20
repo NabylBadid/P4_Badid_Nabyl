@@ -5,14 +5,14 @@
     <h2>Bienvenue <?= $user->getPseudo(); ?></h2><br />
     <?php
 
-    include('showSession.php');
+    // include('showSession.php');
 
-    $arraySession = array(
-        $this->session->show('delete_account'), 
-        $this->session->show('update_password')
-    );
+    // $arraySession = array(
+    //     $this->session->show('delete_account'), 
+    //     $this->session->show('update_password')
+    // );
 
-    echo showSession($arraySession);
+    // echo showSession($arraySession);
 
     ?>
     <p>Votre compte à été créé le <?= $user->getCreatedAt();?></p>

@@ -13,7 +13,7 @@ class ErrorController extends Controller
      */
     public function errorNotFound()
     {
-        $this->session->set('error_404', 'Oops désolé, la page demandée n\'existe pas !');
+        $this->session->set('error_404', 'Oops désolé, la page demandée n\'existe pas !', 'flash');
         header('Location: ../public/index.php');
         exit;
     }
@@ -24,7 +24,7 @@ class ErrorController extends Controller
      */
     public function errorServer()
     {
-        $this->session->set('error_500', 'Oops désolé, il y a eu un problème avec le serveur !');
+        $this->session->set('error_500', 'Oops désolé, il y a eu un problème avec le serveur !', 'flash');
         header('Location: ../public/index.php');
         exit;
     }

@@ -10,6 +10,19 @@ use App\Config\Parameter;
 class FrontController extends Controller
 {
     /**
+     * @var ErrorController
+     */
+    private $errorController;
+
+    public function __construct()
+    {
+        // Appel du constructeur de la classe mère (car celui-ci n'est pas appelé automatiquement)
+        parent::__construct();
+        // Création d'une instance d'errorController
+        $this->errorController = new ErrorController();
+    }
+    
+    /**
      * Méthode renvoyant à la page d'acceuil
      * @return void
      */
@@ -46,9 +59,16 @@ class FrontController extends Controller
     {
         if ($post->get('submit')) {
             $errors = $this->validation->validateComment($post);
+            $invalidUserId = $this->userDAO->checkUserId($post->get('id'));
+            if ($invalidUserId) {
+                // Affichage de l'erreur
+                // $errors['userId'] = $invalidUserId;
+                // Redirection errorServer
+                $this->errorController->errorServer();
+            }
             if (!$errors) {
                 $this->commentDAO->addComment($post, $articleId);
-                $this->session->set('add_comment', 'Le nouveau commentaire a bien été ajouté !');
+                $this->session->set('add_comment', 'Le nouveau commentaire a bien été ajouté !', 'flash');
                 header('Location: ../public/index.php?route=article&articleId=' . $articleId);
                 exit;
             }
@@ -71,7 +91,7 @@ class FrontController extends Controller
     public function flagComment($commentId, $articleId)
     {
         $this->commentDAO->flagComment($commentId);
-        $this->session->set('flag_comment', 'Le commentaire a bien été signalé');
+        $this->session->set('flag_comment', 'Le commentaire a bien été signalé', 'flash');
         header('Location: ../public/index.php?route=article&articleId=' . $articleId);
         exit;
     }
@@ -90,7 +110,7 @@ class FrontController extends Controller
             }
             if (!$errors) {
                 $this->userDAO->register($post);
-                $this->session->set('register', 'Votre inscription a bien été effectuée !');
+                $this->session->set('register', 'Votre inscription a bien été effectuée !', 'flash');
                 header('Location: ../public/index.php');
                 exit;
             }
@@ -114,7 +134,7 @@ class FrontController extends Controller
         if ($post->get('submit')) {
             $result = $this->userDAO->login($post);
             if ($result && $result['isPasswordValid']) {
-                $this->session->set('login', 'Content de vous revoir !');
+                $this->session->set('login', 'Content de vous revoir !', 'flash');
                 $this->session->set('id', $result['result']['id']);
                 $this->session->set('role', $result['result']['role']);
                 $this->session->set('pseudo', $post->get('pseudo'));

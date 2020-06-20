@@ -27,9 +27,13 @@ class Session
      * @param string $value valeur de la variable
      * @return void
      */
-    public function set($name, $value)
+    public function set($name, $value, $flash = NULL)
     {
-        $_SESSION[$name] = $value;
+        if ($flash != NULL) {
+            $_SESSION['flash'][$name] = $value; 
+        } else {
+            $_SESSION[$name] = $value;   
+        }        
     }
 
     /**
@@ -45,30 +49,30 @@ class Session
         }
     }
 
-    /**
-     * Méthode 
-     * @param string $name nom de la varible mise en session
-     * @return void
-     */
-    public function show($name)
-    {
-        if (isset($_SESSION[$name])) {
-            $key = $this->get($name);
-            $this->remove($name);
+    // /**
+    //  * Méthode 
+    //  * @param string $name nom de la varible mise en session
+    //  * @return void
+    //  */
+    // public function show($name)
+    // {
+    //     if (isset($_SESSION['flash'][$name])) {
+    //         $key = $this->get($name);
+    //         $this->remove($name);
             
-            return $key;
-        }
-    }
+    //         return $key;
+    //     }
+    // }
 
-    /**
-     * Méthode effacant une variable en Session
-     * @param string $name nom de la varible mise en session
-     * @return void
-     */
-    public function remove($name)
-    {
-        unset($_SESSION[$name]);
-    }
+    // /**
+    //  * Méthode effacant une variable en Session
+    //  * @param string $name nom de la varible mise en session
+    //  * @return void
+    //  */
+    // public function remove()
+    // {
+    //     unset($_SESSION['flash']);
+    // }
 
     /**
      * Méthode démarrant la Session

@@ -6,7 +6,8 @@
         <meta property="og:title" content="Blog Jean Forteroche" />
         <meta property="og:description" content="Blog de jean Forteroche, Découvrez-y tous mes romans !" />
         <meta property="og:url" content="http://www.jeanforteroche.webagencyp.com" />
-        <meta property="og:image" content="img/favicon.png" />
+        <meta property="og:image" content="../public/img/favicon.ico" />
+        <link rel="shortcut icon" type="image/ico" href="../public/img/favicon.ico"/>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>      
         <link rel="stylesheet" href="../public/css/style.css">
         <script src="../public/js/buttonAnimation.js"></script>
@@ -15,6 +16,7 @@
     </head>
     <body>
         <?php include("header.php"); ?>
+        <?php include("showSession.php"); ?>
         <div id="content">
             <?= $content ?>
         </div>

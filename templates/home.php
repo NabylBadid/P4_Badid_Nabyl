@@ -5,17 +5,18 @@
 
 <div class="container">
 <?php
-include('showSession.php');
+// include('showSession.php');
 
-$arraySession = array(
-    $this->session->show('register'),
-    $this->session->show('login'),
-    $this->session->show('logout'),
-    $this->session->show('error_404'),
-    $this->session->show('error_500')
-);
+// $arraySession = array(
+//     $this->session->show('register'),
+//     $this->session->show('login'),
+//     $this->session->show('logout'),
+//     $this->session->show('error_404'),
+//     $this->session->show('error_500')
+// );
 
-echo showSession($arraySession);
+// echo showSession($arraySession);
+var_dump($this->session);
 ?>
 </div>
 

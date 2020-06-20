@@ -51,8 +51,8 @@ class CommentValidation extends Validation
      */
     private function checkField($name, $value)
     {
-        if ($name === 'pseudo') {
-            $error = $this->checkPseudo($name, $value);
+        if ($name === 'userId') {
+            $error = $this->checkUserId($name, $value);
         } else
         if ($name === 'content') {
             $error = $this->checkContent($name, $value);

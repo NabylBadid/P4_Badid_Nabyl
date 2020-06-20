@@ -39,6 +39,11 @@ class Comment
      */
     private $flag;
 
+    /**
+     * @var int
+     */
+    private $userId;
+
     // GETTERS
 
     /**
@@ -87,6 +92,14 @@ class Comment
     public function isFlag() : ?bool
     {
         return $this->flag;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserId() : ?int
+    {
+        return $this->userId;
     }
 
     // SETTERS
@@ -153,6 +166,17 @@ class Comment
     public function setFlag($flag) : self
     {
         $this->flag = $flag;
+
+        return $this;
+    }
+
+    /**
+     * @param int $id
+     * @return self
+     */
+    public function setUserId(?int $id) : self
+    {
+        $this->userId = $userId;
 
         return $this;
     }

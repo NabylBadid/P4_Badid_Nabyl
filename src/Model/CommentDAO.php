@@ -26,6 +26,7 @@ class CommentDAO extends DAO
             ->setCreatedAt($row['createdAt'])
             ->setFlag($row['flag'])
             ->setArticleId($row['articleId'])
+            // ->setUserId($row['userId'])
         ;
 
         return $comment;
@@ -38,7 +39,9 @@ class CommentDAO extends DAO
      */
     public function getCommentsFromArticle($articleId)
     {
-        $sql = 'SELECT id, pseudo, content, flag, DATE_FORMAT(createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, articleId FROM comment WHERE articleId = ? ORDER BY createdAt DESC';        
+        // $sql = 'SELECT id, pseudo, content, flag, DATE_FORMAT(createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, articleId FROM comment WHERE articleId = ? ORDER BY createdAt DESC';        
+        $sql = 'SELECT comment.id, user.pseudo, comment.content, comment.flag, DATE_FORMAT(comment.createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, comment.articleId FROM comment, article, user WHERE comment.articleId = ? AND comment.userId = user.id ORDER BY comment.createdAt DESC';
+
         $result = $this->checkConnection()->prepare($sql);
         $result->bindValue(1, $articleId , PDO::PARAM_INT);
         $result->execute();
@@ -101,13 +104,12 @@ class CommentDAO extends DAO
      */
     public function addComment(Parameter $post, $articleId)
     {
-        $sql = 'INSERT INTO comment (pseudo, content, createdAt, flag, articleId, userId) VALUES (?, ?, NOW(), ?, ?, ?)';
+        $sql = 'INSERT INTO comment (content, createdAt, flag, articleId, userId) VALUES (?, NOW(), ?, ?, ?)';
         $result = $this->checkConnection()->prepare($sql);
-        $result->bindValue(1, htmlspecialchars($post->get('pseudo')), PDO::PARAM_STR);
-        $result->bindValue(2, $post->get('content'), PDO::PARAM_STR);
-        $result->bindValue(3, 0, PDO::PARAM_INT);
-        $result->bindValue(4, $articleId, PDO::PARAM_INT);
-        $result->bindValue(5, $userId, PDO::PARAM_INT);
+        $result->bindValue(1, $post->get('content'), PDO::PARAM_STR);
+        $result->bindValue(1, 0, PDO::PARAM_INT);
+        $result->bindValue(3, $articleId, PDO::PARAM_INT);
+        $result->bindValue(4, $userId, PDO::PARAM_INT);
         $result->execute();
     }
 

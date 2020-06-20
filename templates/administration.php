@@ -8,16 +8,16 @@ if ($confirmed !== null) {
     <h1 class="text-center"><?= $title ?></h1>
     <div class="container">
         <?php
-        include('showSession.php');
+        // include('showSession.php');
         
-        $arraySession = array(
-            $this->session->show('add_article'),
-            $this->session->show('edit_article'),
-            $this->session->show('delete_article'),
-            $this->session->show('delete_comment')
-        );
+        // $arraySession = array(
+        //     $this->session->show('add_article'),
+        //     $this->session->show('edit_article'),
+        //     $this->session->show('delete_article'),
+        //     $this->session->show('delete_comment')
+        // );
         
-        echo showSession($arraySession);
+        // echo showSession($arraySession);
         ?>
         <h2>Articles</h2>
         <table class="table table-hover table-bordered table-dark table-responsive">
