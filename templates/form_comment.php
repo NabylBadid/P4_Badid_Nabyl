@@ -19,3 +19,5 @@ $this->script =
     </form>
 </div>
 
+<?php
+

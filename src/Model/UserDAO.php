@@ -41,7 +41,7 @@ class UserDAO extends DAO
             ->setPseudo($row['pseudo'])
             ->setCreatedAt($row['createdAt'])
             ->setRole($row['role'])
-            ->setComments($this->commentDAO->getCommentsFromUser($row['pseudo']))
+            ->setComments($this->commentDAO->getCommentsFromUser($row['id']))
         ;
 
         return $user;
@@ -122,11 +122,11 @@ class UserDAO extends DAO
      * @param Parameter $post données POST envoyées par l'utilisateur
      * @return void
      */
-    public function checkUserId($userId)
+    public function checkUserId(Parameter $post)
     {
         $sql = 'SELECT COUNT(id) FROM user WHERE id = ?';
         $result = $this->checkConnection()->prepare($sql);
-        $result->bindValue(1, $userId, PDO::PARAM_INT);
+        $result->bindValue(1, $post->get('userId'), PDO::PARAM_INT);
         $result->execute();
 
         $exist = $result->fetchColumn();

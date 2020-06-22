@@ -26,7 +26,6 @@ class CommentDAO extends DAO
             ->setCreatedAt($row['createdAt'])
             ->setFlag($row['flag'])
             ->setArticleId($row['articleId'])
-            // ->setUserId($row['userId'])
         ;
 
         return $comment;
@@ -58,15 +57,16 @@ class CommentDAO extends DAO
 
     /**
      * Méthode renvoyant les commentaires liés à un utilisateur
-     * @param string $pseudoUser nom de l'utilisateur
+     * @param int $userId id de l'utilisateur
      * @return Comment
      */
-    public function getCommentsFromUser($pseudoUser)
+    public function getCommentsFromUser($userId)
     {
-        $sql = 'SELECT comment.id, comment.pseudo, comment.content, comment.flag, DATE_FORMAT(comment.createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, comment.articleId, article.title FROM comment INNER JOIN article ON comment.articleId = article.id AND comment.pseudo = ? ORDER BY createdAt DESC';
+        // $sql = 'SELECT comment.id, comment.pseudo, comment.content, comment.flag, DATE_FORMAT(comment.createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, comment.articleId, article.title FROM comment INNER JOIN article ON comment.articleId = article.id AND comment.pseudo = ? ORDER BY createdAt DESC';
+        $sql = 'SELECT comment.id, user.pseudo, comment.content, comment.flag, DATE_FORMAT(comment.createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, comment.articleId FROM comment INNER JOIN user ON comment.userId = user.id AND comment.userId = ? ORDER BY createdAt DESC';
 
         $result = $this->checkConnection()->prepare($sql);
-        $result->bindValue(1, $pseudoUser , PDO::PARAM_STR);
+        $result->bindValue(1, $userId , PDO::PARAM_INT);
         $result->execute();
 
         $comments = [];
@@ -86,7 +86,7 @@ class CommentDAO extends DAO
      */
     public function getComment($commentId)
     {
-        $sql = 'SELECT * FROM comment WHERE id = ?';
+        $sql = 'SELECT comment.id, user.pseudo, comment.content, comment.flag, DATE_FORMAT(comment.createdAt, \'%d/%m/%Y à %Hh%imin%ss\') AS createdAt, comment.articleId FROM comment INNER JOIN user ON comment.userId = user.id WHERE comment.id = ?';
         $result = $this->checkConnection()->prepare($sql);
         $result->bindValue(1, $commentId , PDO::PARAM_INT);
         $result->execute();       
@@ -107,9 +107,9 @@ class CommentDAO extends DAO
         $sql = 'INSERT INTO comment (content, createdAt, flag, articleId, userId) VALUES (?, NOW(), ?, ?, ?)';
         $result = $this->checkConnection()->prepare($sql);
         $result->bindValue(1, $post->get('content'), PDO::PARAM_STR);
-        $result->bindValue(1, 0, PDO::PARAM_INT);
+        $result->bindValue(2, 0, PDO::PARAM_INT);
         $result->bindValue(3, $articleId, PDO::PARAM_INT);
-        $result->bindValue(4, $userId, PDO::PARAM_INT);
+        $result->bindValue(4, $post->get('userId'), PDO::PARAM_STR);
         $result->execute();
     }
 

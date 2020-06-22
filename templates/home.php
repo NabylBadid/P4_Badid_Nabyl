@@ -4,20 +4,7 @@
 </div>
 
 <div class="container">
-<?php
-// include('showSession.php');
-
-// $arraySession = array(
-//     $this->session->show('register'),
-//     $this->session->show('login'),
-//     $this->session->show('logout'),
-//     $this->session->show('error_404'),
-//     $this->session->show('error_500')
-// );
-
-// echo showSession($arraySession);
-var_dump($this->session);
-?>
+<?php var_dump($this->session); ?>
 </div>
 
 <div class="container books">

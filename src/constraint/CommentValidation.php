@@ -82,7 +82,7 @@ class CommentValidation extends Validation
      */
     private function checkUserId($name, $value)
     {
-        $value = $this->constraint->validInt($value);
+        $value = $this->constraint->sanitizeString($value);
         $name = $this->constraint->getMethodName(__CLASS__, __METHOD__);
 
         return array (

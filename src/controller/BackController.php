@@ -183,12 +183,13 @@ class BackController extends Controller
     {
         $article = $this->articleDAO->getArticle($articleId);
         $comment = $this->commentDAO->getComment($commentId);
+        $userId = $this->post->get('userId');
+        $sessionId = $this->session->get('id');
         if ($post->get('submit')) {
             $errors = $this->validation->validateComment($post);
-            $invalidUserId = $this->userDAO->checkUserId($post->get('id'));
-            if ($invalidUserId) {
+            if ($userId != $sessionId) { // Si l'utilisateur a changé l'input "userId" alors on le redirige 
                 // Affichage de l'erreur
-                // $errors['userId'] = $invalidUserId;
+                // $errors['userId'] = 'L\'utilisateur n\'existe pas';
                 // Redirection errorServer
                 $this->errorController->errorServer();
             }

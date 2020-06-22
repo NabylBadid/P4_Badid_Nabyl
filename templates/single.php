@@ -9,20 +9,6 @@
         }
     ?>
     <h2 class="text-center"><em><?= htmlspecialchars($article->getTitle());?></em></h2><br />
-    <?php    
-        // include('showSession.php');
-
-        // $arraySession = array(
-        //     $this->session->show('add_comment'),// single.php
-        //     $this->session->show('flag_comment'),// //single.php
-        //     $this->session->show('delete_comment'),// single.php et admin
-        //     $this->session->show('edit_comment') // single .php
-        // );
-
-        // echo showSession($arraySession);
-
-        // var_dump($article);
-    ?>
     <p class="info"> <i class="far fa-clock"></i> <span class="italic">posté le</span> : <?= htmlspecialchars($article->getCreatedAt());?></p>
     <p><?= $article->getContent();?></p>
     <br>
